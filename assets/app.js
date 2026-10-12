@@ -484,7 +484,7 @@
       y1516Share: () => pct((yr(2015).total + yr(2016).total) / B.totalHotspots * 100), y2017: () => fmt(yr(2017).total),
       elNino: () => p1(ph("El Nino").mean), neutral: () => p1(ph("Netral").mean), laNina: () => p1(ph("La Nina").mean),
       kw: () => "H = " + B.kruskal.H.toFixed(2) + ", " + pv(B.kruskal.p) + ", η² = " + B.kruskal.eta2.toFixed(3),
-      dunnAdj: () => String(B.kruskal.dunn[1].padj), p95Nino: () => p1(ph("El Nino").p95), p95Nina: () => p1(ph("La Nina").p95),
+      dunnAdj: () => "adjusted p < 0.001 for all three pairs", p95Nino: () => p1(ph("El Nino").p95), p95Nina: () => p1(ph("La Nina").p95),
       deepRatio: () => "×" + PT.table[4].ratio.toFixed(2), deepShare: () => pct(PT.table[4].pctHot), deepArea: () => pct(PT.table[4].pctArea),
       r100: () => "×" + PT.table[1].ratio.toFixed(2), r300: () => "×" + PT.table[3].ratio.toFixed(2),
       areaDeepest: () => pct(PT.table[5].pctArea), hotDeepest: () => pct(PT.table[5].pctHot), ratioDeepest: () => "×" + PT.table[5].ratio.toFixed(2),

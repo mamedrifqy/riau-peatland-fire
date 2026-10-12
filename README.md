@@ -51,6 +51,8 @@ python3 build/geo_bengkalis.py bengkalis.geojson             # 155 villages -> 1
 python3 build/hotspots.py hotspotriau.geojson bengkalis.geojson   # DBSCAN filter; fails unless 12 notebook checkpoints
                                                                     # and the report's Bengkalis series (120 months) match
 python3 build/peat.py gambut.geojson bengkalis.geojson       # peat layer and depth table
+python3 build/verify_bengkalis.py                            # recompute rho, Kruskal-Wallis, Dunn, totals from the points
+python3 build/verify_riau_hotspots.py hotspotriau.geojson    # report's 12-regency series vs raw file, 120 months
 ```
 
 `build/peat.py` documents one correction to the thesis notebook: its depth table divided hotspot shares by the area

@@ -38,23 +38,41 @@
   "dunn": [
    {
     "pair": "La Niña vs Neutral",
-    "p": 0.0347,
-    "padj": 0.0521,
-    "sig": false
+    "p": 3.289e-06,
+    "padj": 3.289e-06,
+    "sig": true
    },
    {
     "pair": "La Niña vs El Niño",
-    "p": 0.0001,
-    "padj": 0.0004,
+    "p": 4.262e-19,
+    "padj": 1.278e-18,
     "sig": true
    },
    {
     "pair": "Neutral vs El Niño",
-    "p": 0.074,
-    "padj": 0.074,
-    "sig": false
+    "p": 2.223e-06,
+    "padj": 3.289e-06,
+    "sig": true
    }
-  ]
+  ],
+  "dunnNotebookAsPrinted": [
+   {
+    "pair": "La Niña vs Neutral",
+    "p": 0.0347,
+    "padj": 0.0521
+   },
+   {
+    "pair": "La Niña vs El Niño",
+    "p": 0.0001,
+    "padj": 0.0004
+   },
+   {
+    "pair": "Neutral vs El Niño",
+    "p": 0.074,
+    "padj": 0.074
+   }
+  ],
+  "dunnNote": "The notebook's post-hoc ranked each pair separately and applied no tie correction (about 80% of values are zero), which inflates p. Standard Dunn (global ranks, tie-corrected; scikit-posthocs agrees) with Benjamini-Hochberg gives the values above."
  },
  "chi2NotebookAsPrinted": {
   "chi2": 1013.54,
