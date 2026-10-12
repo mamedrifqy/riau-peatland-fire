@@ -381,6 +381,7 @@
     let msg = "";
     if (twin) msg = r.name + "’s rainfall and temperature series are identical to " + twin.filter((x) => x !== r.name)[0] + "’s in the report. Only the hotspot counts differ.";
     else if (!r.peatHa) msg = "The report maps no peat in " + r.name + ", so the peat chart is empty. Its hotspot counts still cover the whole regency.";
+    if (r.name === "Bengkalis") msg = (msg ? msg + " " : "") + "These counts are the report’s series (MODIS, confidence ≥30%, no DBSCAN). The thesis section below uses 3,536 points after DBSCAN filtering, drawn from the same source points.";
     n.hidden = !msg; n.textContent = msg;
   }
 
