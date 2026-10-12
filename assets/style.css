@@ -272,3 +272,8 @@ footer a { color: #9cc9de; }
 #bp-svg { display: block; width: 100%; height: auto; max-height: 72vh; border-radius: 4px; }
 #bp-svg .kk { pointer-events: all; cursor: pointer; }
 #bp-svg .kk:hover { stroke: var(--char); stroke-width: 2.4; }
+
+.read-post { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; margin-top: 1.5rem; }
+.btn-read { display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1.1rem; background: var(--ember-deep); color: #fff; font-weight: 600; text-decoration: none; border-radius: 3px; }
+.btn-read:hover, .btn-read:focus-visible { filter: brightness(1.1); outline: 2px solid var(--char); outline-offset: 2px; }
+.read-note { font-size: .85rem; color: var(--char-2); opacity: .8; }
