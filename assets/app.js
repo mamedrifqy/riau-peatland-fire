@@ -515,4 +515,127 @@
     $("#b-depth").innerHTML = "<thead><tr><th>Depth class</th><th>Hotspots</th><th>Share of hotspots</th><th>Share of peat area</th><th>Ratio</th></tr></thead><tbody>" +
       B.depth.map((d) => '<tr><td>' + d.cls.replace("<", "under ").replace(">", "over ") + "</td><td>" + fmt(d.n) + "</td><td>" + pct(d.pctHot) + "</td><td>" + pct(d.pctArea) + '</td><td class="' + (d.ratio > 1.5 ? "sig" : "") + '">' + d.ratio.toFixed(2) + "</td></tr>").join("") + "</tbody>";
   })();
+
+  /* ---------- section: interactive map ---------- */
+  (function () {
+    const G = window.RIAU_GEO, svg = $("#map-svg");
+    if (!G || !svg) return;
+    const NS = "http://www.w3.org/2000/svg";
+    const RAMP = ["#f1e9de", "#f3cfa6", "#e9915f", "#d0471b", "#8a2410"];
+    const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+    const ramp = (t) => {
+      t = Math.max(0, Math.min(1, t)); const p = t * (RAMP.length - 1), i = Math.min(RAMP.length - 2, Math.floor(p)), f = p - i;
+      const a = hex(RAMP[i]), b = hex(RAMP[i + 1]);
+      return "rgb(" + a.map((v, k) => Math.round(v + (b[k] - v) * f)).join(",") + ")";
+    };
+    const M0 = { mode: "month", t: 0, sel: null, timer: null };
+    const gmax = Math.max.apply(null, R.map((r) => Math.max.apply(null, r.hotspot)));
+    const val = {
+      month: (r) => r.hotspot[M0.t], total: (r) => total(r),
+      density: (r) => DV.hotspots_per_100k_ha[r.id], peat: (r) => (r.peatHa ? r.peatHa : null)
+    };
+    const domain = {
+      month: [0, gmax], total: [0, Math.max.apply(null, R.map(total))],
+      density: [0, Math.max.apply(null, R.map((r) => DV.hotspots_per_100k_ha[r.id] || 0))],
+      peat: [0, Math.max.apply(null, R.map((r) => r.peatHa))]
+    };
+    const unit = { month: "hotspots", total: "hotspots", density: "hotspots per 100,000 ha", peat: "ha mapped peat" };
+    const scale = (mode, v) => (v == null ? null : Math.sqrt(v / domain[mode][1]));
+
+    svg.setAttribute("viewBox", "0 0 " + G.w + " " + G.h);
+    const gPaths = document.createElementNS(NS, "g"), gLab = document.createElementNS(NS, "g");
+    gLab.setAttribute("pointer-events", "none"); gLab.setAttribute("aria-hidden", "true");
+    svg.appendChild(gPaths); svg.appendChild(gLab);
+    const els = {};
+    R.forEach((r) => {
+      const g = G.regencies[r.id]; if (!g) return;
+      const p = document.createElementNS(NS, "path");
+      p.setAttribute("d", g.d); p.setAttribute("class", "reg"); p.setAttribute("fill-rule", "evenodd");
+      p.setAttribute("tabindex", "0"); p.setAttribute("role", "button"); p.dataset.id = r.id;
+      gPaths.appendChild(p); els[r.id] = p;
+      const t = document.createElementNS(NS, "text");
+      t.setAttribute("x", g.cx); t.setAttribute("y", g.cy); t.setAttribute("text-anchor", "middle"); t.setAttribute("class", "lab");
+      t.textContent = r.name; gLab.appendChild(t);
+    });
+
+    const tip = document.createElement("div"); tip.className = "tip"; $(".map-fig").style.position = "relative"; $(".map-fig").appendChild(tip);
+    const fmtVal = (mode, v) => (v == null ? "none mapped" : mode === "density" ? fmt(Math.round(v)) : fmt(Math.round(v)));
+    const label = (r) => r.name + ": " + fmtVal(M0.mode, val[M0.mode](r)) + " " + unit[M0.mode] + (M0.mode === "month" ? ", " + monthName(M0.t, true) : "");
+
+    function paint() {
+      R.forEach((r) => {
+        const el = els[r.id]; if (!el) return;
+        const t = scale(M0.mode, val[M0.mode](r));
+        el.setAttribute("fill", t == null ? "url(#nodata)" : ramp(t));
+        el.setAttribute("aria-label", label(r));
+        el.setAttribute("aria-pressed", String(M0.sel === r.id));
+        el.classList.toggle("on", M0.sel === r.id);
+      });
+      if (M0.sel) gPaths.appendChild(els[M0.sel]);
+      const [lo, hi] = domain[M0.mode];
+      $("#map-legend").innerHTML = '<span>' + fmt(lo) + '</span><i style="background:linear-gradient(90deg,' + [0, .25, .5, .75, 1].map((q) => ramp(Math.sqrt(q))).join(",") + ')"></i><span>' + fmt(Math.round(hi)) + " " + unit[M0.mode] + (M0.mode === "month" ? " (highest regency-month)" : "") + "</span>" +
+        '<span class="nd"><b></b> none mapped</span>';
+      info();
+    }
+    function info() {
+      const r = M0.sel ? byId(M0.sel) : null;
+      $("#mi-name").textContent = r ? r.name : "Select a regency";
+      const f = $("#mi-facts"), mi = $("#mi-month"), open = $("#mi-open");
+      open.hidden = !r;
+      if (!r) { f.innerHTML = ""; mi.textContent = "Click or tab to a regency on the map."; return; }
+      const rows = [["Hotspots, 2015–2024", fmt(total(r))], ["Hotspot rank", (rankHot.indexOf(r.id) + 1) + " of 12"],
+        ["Mapped peat", r.peatHa ? fmt(r.peatHa) + " ha" : "none mapped"], ["Peat rank", r.peatHa ? (rankArea.indexOf(r.id) + 1) + " of 12" : "n/a"],
+        ["Peak month", monthName(r.hotspot.indexOf(Math.max.apply(null, r.hotspot)), false) + " (" + Math.max.apply(null, r.hotspot) + ")"]];
+      f.innerHTML = rows.map((x) => "<div><dt>" + x[0] + "</dt><dd>" + x[1] + "</dd></div>").join("");
+      mi.textContent = M0.mode === "month" ? monthName(M0.t, true) + ": " + r.hotspot[M0.t] + " hotspots here." : "";
+    }
+    function setMonth(t) {
+      M0.t = t; $("#map-slider").value = t;
+      const ph = D.phase[t];
+      $("#map-month").innerHTML = "<b>" + monthName(t, true) + "</b> <span class='chip' style='background:" + PHASE_COLOR[ph] + ";color:" + (ph === "Netral" ? C.char : "#fff") + "'>" + PHASE_LABEL[ph] + "</span> ONI " + sgn(D.oni[t], 2) + " · " + fmt(sum(R.map((r) => r.hotspot[t]))) + " hotspots in total";
+      paint();
+    }
+    function setMode(m) {
+      M0.mode = m; stop();
+      $$("#map-modes button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+      $("#map-time").hidden = m !== "month"; paint();
+    }
+    function stop() { if (M0.timer) { clearInterval(M0.timer); M0.timer = null; $("#map-play").textContent = "▶ Play"; } }
+    function play() {
+      if (M0.timer) return stop();
+      if (M0.t >= N - 1) setMonth(0);
+      $("#map-play").textContent = "❚❚ Pause";
+      M0.timer = setInterval(() => { if (M0.t >= N - 1) return stop(); setMonth(M0.t + 1); }, 140);
+    }
+    function select(id) { M0.sel = id; paint(); }
+
+    const defs = document.createElementNS(NS, "defs");
+    defs.innerHTML = '<pattern id="nodata" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="#d9dcd5"/><rect width="3" height="9" fill="#b7bcb2"/></pattern>';
+    svg.insertBefore(defs, gPaths);
+
+    svg.addEventListener("click", (e) => { const p = e.target.closest(".reg"); if (p) select(p.dataset.id); });
+    svg.addEventListener("keydown", (e) => { const p = e.target.closest(".reg"); if (p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); select(p.dataset.id); } });
+    function showTip(e) {
+      const p = e.target.closest ? e.target.closest(".reg") : null;
+      if (!p) { tip.classList.remove("on"); return; }
+      const r = byId(p.dataset.id), box = $(".map-fig").getBoundingClientRect();
+      tip.innerHTML = "<b>" + r.name + "</b><br>" + fmtVal(M0.mode, val[M0.mode](r)) + " " + unit[M0.mode];
+      tip.style.left = Math.min(box.width - 160, (e.clientX - box.left) + 14) + "px"; tip.style.top = (e.clientY - box.top + 14) + "px"; tip.classList.add("on");
+    }
+    svg.addEventListener("mousemove", showTip); svg.addEventListener("mouseleave", () => tip.classList.remove("on"));
+    svg.addEventListener("focusin", (e) => { const p = e.target.closest(".reg"); if (!p) return; const r = byId(p.dataset.id), g = G.regencies[r.id], box = svg.getBoundingClientRect();
+      tip.innerHTML = "<b>" + r.name + "</b><br>" + fmtVal(M0.mode, val[M0.mode](r)) + " " + unit[M0.mode];
+      tip.style.left = Math.min($(".map-fig").clientWidth - 160, g.cx / G.w * box.width) + "px"; tip.style.top = (svg.offsetTop + g.cy / G.h * box.height) + "px"; tip.classList.add("on"); });
+    svg.addEventListener("focusout", () => tip.classList.remove("on"));
+    $("#map-modes").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) setMode(b.dataset.mode); });
+    $("#map-slider").max = N - 1;
+    $("#map-slider").addEventListener("input", (e) => { stop(); setMonth(+e.target.value); });
+    $("#map-play").addEventListener("click", play);
+    $("#mi-open").addEventListener("click", () => {
+      X.id = M0.sel; renderPills(); renderFacts(); X.dirty = {}; showTab(X.tab);
+      $("#explorer").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+    });
+    // open on the first July of the 2015 peak so the first frame is not empty
+    const peakT = M.indexOf("2015-07"); setMonth(peakT > -1 ? peakT : 0);
+  })();
 })();

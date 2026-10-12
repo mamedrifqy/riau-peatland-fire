@@ -16,6 +16,7 @@
   <div class="wrap">
     <a class="name" href="#top">Riau peatland fire</a>
     <nav aria-label="Sections">
+      <a href="#map">Map</a>
       <a href="#where">Where</a>
       <a href="#when">When</a>
       <a href="#elnino">El Niño</a>
@@ -53,6 +54,42 @@
     </div>
   </div>
 </div>
+
+<!-- ============================ MAP ============================ -->
+<section id="map">
+  <div class="wrap">
+    <p class="eyebrow">Interactive map</p>
+    <h2>See the fire move across Riau</h2>
+    <p class="map-lede">Drag the month slider to watch hotspots build up in 2015 and 2019, or switch to a fixed view of the ten-year total, peat area or hotspots per peat area. Click a regency for its numbers, then open it in the explorer.</p>
+    <div class="map-ctl">
+      <div class="seg" role="group" aria-label="Map view" id="map-modes">
+        <button type="button" data-mode="month" aria-pressed="true">Month by month</button>
+        <button type="button" data-mode="total" aria-pressed="false">Ten-year total</button>
+        <button type="button" data-mode="density" aria-pressed="false">Per 100,000 ha peat</button>
+        <button type="button" data-mode="peat" aria-pressed="false">Mapped peat area</button>
+      </div>
+    </div>
+    <div class="map-grid">
+      <figure class="map-fig">
+        <div class="map-time" id="map-time">
+          <button type="button" id="map-play" aria-label="Play months">▶ Play</button>
+          <label class="sr-only" for="map-slider">Month</label>
+          <input type="range" id="map-slider" min="0" value="0" step="1">
+          <output id="map-month" for="map-slider"></output>
+        </div>
+        <svg id="map-svg" role="group" aria-label="Map of the 12 regencies and cities of Riau, coloured by the selected measure"></svg>
+        <div class="map-legend" id="map-legend"></div>
+        <figcaption>Outlines: GADM v4.0, simplified. Values: the regional report. Colour scale is fixed across months so months can be compared. Hotspot counts cover each regency’s whole territory; Kuantan Singingi has no mapped peat in the report, so it is grey in the peat views.</figcaption>
+      </figure>
+      <aside class="map-info" id="map-info" aria-live="polite">
+        <h3 id="mi-name"></h3>
+        <dl class="mi-facts" id="mi-facts"></dl>
+        <p class="mi-month" id="mi-month"></p>
+        <button type="button" class="mi-open" id="mi-open">Open in the explorer ↓</button>
+      </aside>
+    </div>
+  </div>
+</section>
 
 <!-- ============================ WHERE ============================ -->
 <section id="where">
@@ -266,6 +303,7 @@
           <li><a href="data/peat_depth_classes.csv" download>Peat depth classes (CSV)</a></li>
           <li><a href="data/derived_stats.json" download>Derived statistics (JSON)</a></li>
           <li><a href="data/validation.json" download>Validation (JSON)</a></li>
+          <li><a href="data/riau_regencies_simplified.geojson" download>Regency outlines (GeoJSON)</a></li>
           <li><a href="data/bengkalis_thesis.json" download>Bengkalis thesis tables (JSON)</a></li>
           <li><a href="data/source/laporan-korelasi-iklim-gambut-hotspot-12-kabupaten.pdf">Source report (PDF)</a></li>
         </ul>
@@ -288,12 +326,13 @@
 
 <footer>
   <div class="wrap">
-    Source: Regional Peatland Report 2026, <em>Laporan Korelasi Iklim, Gambut &amp; Hotspot</em>, 12 Kabupaten/Kota Riau, 2015–2024. Methods: Spearman ρ, Kendall τ-b, Kruskal-Wallis H, lagged correlation. Monthly series recovered from the report’s charts; see Data and method. Bengkalis case study: author’s thesis notebook, 2015–2024.
+    Source: Regional Peatland Report 2026, <em>Laporan Korelasi Iklim, Gambut &amp; Hotspot</em>, 12 Kabupaten/Kota Riau, 2015–2024. Methods: Spearman ρ, Kendall τ-b, Kruskal-Wallis H, lagged correlation. Monthly series recovered from the report’s charts; see Data and method. Bengkalis case study: author’s thesis notebook, 2015–2024. Map outlines: GADM v4.0 (gadm.org), for non-commercial use.
   </div>
 </footer>
 
 <script src="assets/vendor/chart.umd.js"></script>
 <script src="assets/data.js"></script>
+<script src="assets/riau-geo.js"></script>
 <script src="assets/bengkalis-data.js"></script>
 <script src="assets/app.js"></script>
 </body>
