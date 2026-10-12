@@ -285,6 +285,28 @@
         <p class="caveat"><b>Reading ρ with care.</b> Pinggir (ρ = <span data-b="rhoPinggir"></span>) and Mandau (<span data-b="rhoMandau"></span>) are not significant on raw p. Mandau has only 23 hotspots in ten years, so the test has little power; that is a statement about sample size, not proof that fire there ignores climate.</p>
       </div>
     </div>
+    <div class="bk-map">
+      <h3>Map of the 11 kecamatan</h3>
+      <div class="seg" role="group" aria-label="Bengkalis map view" id="b-modes">
+        <button type="button" data-m="total" aria-pressed="true">Hotspots</button>
+        <button type="button" data-m="share" aria-pressed="false">Share in peat</button>
+        <button type="button" data-m="rho" aria-pressed="false">ONI correlation</button>
+        <button type="button" data-m="pAnnual" aria-pressed="false">Fire probability</button>
+        <button type="button" data-m="pElNino" aria-pressed="false">… in El Niño</button>
+        <button type="button" data-m="pLaNina" aria-pressed="false">… in La Niña</button>
+      </div>
+      <div class="map-grid">
+        <figure class="map-fig" id="b-mapfig">
+          <svg id="b-svg" role="group" aria-label="Map of the 11 kecamatan of Kabupaten Bengkalis, coloured by the selected measure"></svg>
+          <div class="map-legend" id="b-legend"></div>
+          <figcaption id="b-mapcap"></figcaption>
+        </figure>
+        <aside class="map-info" aria-live="polite">
+          <h3 id="bm-name"></h3>
+          <dl class="mi-facts" id="bm-facts"></dl>
+        </aside>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -304,6 +326,7 @@
           <li><a href="data/derived_stats.json" download>Derived statistics (JSON)</a></li>
           <li><a href="data/validation.json" download>Validation (JSON)</a></li>
           <li><a href="data/riau_regencies_simplified.geojson" download>Regency outlines (GeoJSON)</a></li>
+          <li><a href="data/bengkalis_kecamatan_simplified.geojson" download>Bengkalis kecamatan outlines (GeoJSON)</a></li>
           <li><a href="data/bengkalis_thesis.json" download>Bengkalis thesis tables (JSON)</a></li>
           <li><a href="data/source/laporan-korelasi-iklim-gambut-hotspot-12-kabupaten.pdf">Source report (PDF)</a></li>
         </ul>
@@ -333,6 +356,7 @@
 <script src="assets/vendor/chart.umd.js"></script>
 <script src="assets/data.js"></script>
 <script src="assets/riau-geo.js"></script>
+<script src="assets/bengkalis-geo.js"></script>
 <script src="assets/bengkalis-data.js"></script>
 <script src="assets/app.js"></script>
 </body>

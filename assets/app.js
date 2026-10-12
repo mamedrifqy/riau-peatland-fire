@@ -620,12 +620,12 @@
       if (!p) { tip.classList.remove("on"); return; }
       const r = byId(p.dataset.id), box = $(".map-fig").getBoundingClientRect();
       tip.innerHTML = "<b>" + r.name + "</b><br>" + fmtVal(M0.mode, val[M0.mode](r)) + " " + unit[M0.mode];
-      tip.style.left = Math.min(box.width - 160, (e.clientX - box.left) + 14) + "px"; tip.style.top = (e.clientY - box.top + 14) + "px"; tip.classList.add("on");
+      tip.style.left = Math.max(0, Math.min(box.width - 200, (e.clientX - box.left) + 14)) + "px"; tip.style.top = (e.clientY - box.top + 14) + "px"; tip.classList.add("on");
     }
     svg.addEventListener("mousemove", showTip); svg.addEventListener("mouseleave", () => tip.classList.remove("on"));
     svg.addEventListener("focusin", (e) => { const p = e.target.closest(".reg"); if (!p) return; const r = byId(p.dataset.id), g = G.regencies[r.id], box = svg.getBoundingClientRect();
       tip.innerHTML = "<b>" + r.name + "</b><br>" + fmtVal(M0.mode, val[M0.mode](r)) + " " + unit[M0.mode];
-      tip.style.left = Math.min($(".map-fig").clientWidth - 160, g.cx / G.w * box.width) + "px"; tip.style.top = (svg.offsetTop + g.cy / G.h * box.height) + "px"; tip.classList.add("on"); });
+      tip.style.left = Math.max(0, Math.min($(".map-fig").clientWidth - 200, g.cx / G.w * box.width)) + "px"; tip.style.top = (svg.offsetTop + g.cy / G.h * box.height) + "px"; tip.classList.add("on"); });
     svg.addEventListener("focusout", () => tip.classList.remove("on"));
     $("#map-modes").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) setMode(b.dataset.mode); });
     $("#map-slider").max = N - 1;
@@ -637,5 +637,66 @@
     });
     // open on the first July of the 2015 peak so the first frame is not empty
     const peakT = M.indexOf("2015-07"); setMonth(peakT > -1 ? peakT : 0);
+  })();
+
+  /* ---------- Bengkalis kecamatan map ---------- */
+  (function () {
+    const GB = window.BKL_GEO, B = window.BKL, svg = $("#b-svg");
+    if (!GB || !B || !svg) return;
+    const NS = "http://www.w3.org/2000/svg", kec = B.kecamatan;
+    const RAMP = ["#f1e9de", "#f3cfa6", "#e9915f", "#d0471b", "#8a2410"];
+    const hx = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+    const ramp = (t) => { t = Math.max(0, Math.min(1, t)); const p = t * 4, i = Math.min(3, Math.floor(p)), f = p - i, a = hx(RAMP[i]), b = hx(RAMP[i + 1]);
+      return "rgb(" + a.map((v, k) => Math.round(v + (b[k] - v) * f)).join(",") + ")"; };
+    const maxTotal = Math.max.apply(null, kec.map((k) => k.total));
+    const MODES = {
+      total: { v: (k) => k.total, t: (v) => Math.sqrt(v / maxTotal), lo: "0", hi: fmt(maxTotal) + " hotspots", f: (v) => fmt(v) + " hotspots",
+        cap: "Hotspots after DBSCAN filtering, 2015–2024. Colour is on a square-root scale." },
+      share: { v: (k) => k.inPeat / k.total * 100, t: (v) => (v - 50) / 50, lo: "50%", hi: "100% of hotspots inside peat polygons", f: (v) => v.toFixed(1) + "% in peat",
+        cap: "Share of each kecamatan’s hotspots that fall inside mapped peat. Talang Muandau (55.6%) and Bandar Laksamana (81.9%) are the least peat-bound." },
+      rho: { v: (k) => k.rho, t: (v) => v / 0.4, lo: "0", hi: "ρ = 0.40", f: (v) => "ρ = " + v.toFixed(2),
+        cap: "Spearman ρ between ONI and monthly hotspots, per kecamatan (raw p; Pinggir and Mandau are not significant)." },
+      pAnnual: { v: (k) => k.pAnnual, t: (v) => v / 0.7, lo: "0%", hi: "70%", f: (v) => Math.round(v * 100) + "%",
+        cap: "Random Forest predicted probability of at least one hotspot in a month, averaged over all months. In-sample output of the thesis model, so it describes the fit, not forecast skill." },
+      pElNino: { v: (k) => k.pElNino, t: (v) => v / 0.7, lo: "0%", hi: "70%", f: (v) => Math.round(v * 100) + "%",
+        cap: "The same model probability, averaged over El Niño months only. Same colour scale as the annual view." },
+      pLaNina: { v: (k) => k.pLaNina, t: (v) => v / 0.7, lo: "0%", hi: "70%", f: (v) => Math.round(v * 100) + "%",
+        cap: "The same model probability, averaged over La Niña months only. Same colour scale, so the drop from El Niño is visible." }
+    };
+    const S = { m: "total", sel: "Rupat" };
+    svg.setAttribute("viewBox", "-60 -10 " + (GB.w + 100) + " " + (GB.h + 20));
+    const gp = document.createElementNS(NS, "g"), gl = document.createElementNS(NS, "g");
+    gl.setAttribute("pointer-events", "none"); gl.setAttribute("aria-hidden", "true"); svg.appendChild(gp); svg.appendChild(gl);
+    const els = {};
+    kec.forEach((k) => {
+      const g = GB.kecamatan[k.name], p = document.createElementNS(NS, "path");
+      p.setAttribute("d", g.d); p.setAttribute("class", "reg"); p.setAttribute("fill-rule", "evenodd"); p.setAttribute("tabindex", "0"); p.setAttribute("role", "button"); p.dataset.k = k.name;
+      gp.appendChild(p); els[k.name] = p;
+      const t = document.createElementNS(NS, "text"); const nudge = { "Bantan": [0, -30], "Bengkalis": [-6, 26] }[k.name] || [0, 0];
+      t.setAttribute("x", g.cx + nudge[0]); t.setAttribute("y", g.cy + nudge[1]); t.setAttribute("text-anchor", "middle"); t.setAttribute("class", "lab"); t.textContent = k.name; gl.appendChild(t);
+    });
+    const tip = document.createElement("div"); tip.className = "tip"; const fig = $("#b-mapfig"); fig.style.position = "relative"; fig.appendChild(tip);
+    const by = (n) => kec.find((k) => k.name === n);
+    function paint() {
+      const md = MODES[S.m];
+      kec.forEach((k) => { const el = els[k.name]; el.setAttribute("fill", ramp(md.t(md.v(k)))); el.setAttribute("aria-label", k.name + ": " + md.f(md.v(k))); el.setAttribute("aria-pressed", String(S.sel === k.name)); el.classList.toggle("on", S.sel === k.name); });
+      if (S.sel) gp.appendChild(els[S.sel]);
+      $("#b-legend").innerHTML = "<span>" + md.lo + '</span><i style="background:linear-gradient(90deg,' + [0, .25, .5, .75, 1].map((q) => ramp(S.m === "total" ? Math.sqrt(q) : q)).join(",") + ')"></i><span>' + md.hi + "</span>";
+      $("#b-mapcap").textContent = md.cap + " Outlines: village boundaries (TASWIL 2022) dissolved to kecamatan.";
+      $$("#b-modes button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.m === S.m)));
+      const k = by(S.sel); $("#bm-name").textContent = k.name;
+      const sigTxt = k.sig === "ns" ? "not significant" : k.sig;
+      const rows = [["Hotspots, 2015–2024", fmt(k.total) + " (" + (k.total / B.totalHotspots * 100).toFixed(1) + "%)"], ["Inside peat", fmt(k.inPeat) + " (" + (k.inPeat / k.total * 100).toFixed(1) + "%)"],
+        ["ρ, ONI vs hotspots", k.rho.toFixed(2) + " (" + sigTxt + ")"], ["Fire probability, all months", Math.round(k.pAnnual * 100) + "%"],
+        ["… El Niño months", Math.round(k.pElNino * 100) + "%"], ["… La Niña months", Math.round(k.pLaNina * 100) + "%"], ["Villages", String(GB.kecamatan[k.name].villages)]];
+      $("#bm-facts").innerHTML = rows.map((r) => "<div><dt>" + r[0] + "</dt><dd>" + r[1] + "</dd></div>").join("");
+    }
+    svg.addEventListener("click", (e) => { const p = e.target.closest(".reg"); if (p) { S.sel = p.dataset.k; paint(); } });
+    svg.addEventListener("keydown", (e) => { const p = e.target.closest(".reg"); if (p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); S.sel = p.dataset.k; paint(); } });
+    svg.addEventListener("mousemove", (e) => { const p = e.target.closest(".reg"); if (!p) { tip.classList.remove("on"); return; } const k = by(p.dataset.k), box = fig.getBoundingClientRect();
+      tip.innerHTML = "<b>" + k.name + "</b><br>" + MODES[S.m].f(MODES[S.m].v(k)); tip.style.left = Math.max(0, Math.min(box.width - 200, e.clientX - box.left + 14)) + "px"; tip.style.top = e.clientY - box.top + 14 + "px"; tip.classList.add("on"); });
+    svg.addEventListener("mouseleave", () => tip.classList.remove("on"));
+    $("#b-modes").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { S.m = b.dataset.m; paint(); } });
+    paint();
   })();
 })();
