@@ -467,4 +467,52 @@
   });
 
   renderPills(); renderFacts(); showTab("series");
+
+  /* ---------- section: Bengkalis thesis case study ---------- */
+  (function () {
+    const B = window.BKL;
+    if (!B || !$("#b-kec")) return;
+    const p1 = (n) => n.toFixed(1), pct = (n) => n.toFixed(1) + "%";
+    const kec = B.kecamatan, top2 = kec[0].total + kec[1].total;
+    const yr = (y) => B.years.find((o) => o.year === y);
+    const ph = (k) => B.kruskal.phases.find((o) => o.phase === k);
+    const dp = B.depth.find((d) => d.cls.indexOf("500") === 0);
+    const pv = (x) => (x < 1e-3 ? "p < 0.001" : "p = " + x.toFixed(3));
+    const rho = (n) => (n < 0 ? MINUS : "") + Math.abs(n).toFixed(2);
+    const bind = {
+      nKec: () => String(B.nKecamatan), total: () => fmt(B.totalHotspots), inPeatPct: () => pct(B.inPeatPct),
+      top2Share: () => pct(top2 / B.totalHotspots * 100), mandau: () => fmt(kec.find((k) => k.name === "Mandau").total) + " in ten years",
+      y1516Share: () => pct((yr(2015).total + yr(2016).total) / B.totalHotspots * 100), y2017: () => fmt(yr(2017).total),
+      elNino: () => p1(ph("El Nino").mean), neutral: () => p1(ph("Netral").mean), laNina: () => p1(ph("La Nina").mean),
+      kw: () => "H = " + B.kruskal.H.toFixed(2) + ", " + pv(B.kruskal.p) + ", η² = " + B.kruskal.eta2.toFixed(3),
+      dunnAdj: () => String(B.kruskal.dunn[1].padj), p95Nino: () => p1(ph("El Nino").p95), p95Nina: () => p1(ph("La Nina").p95),
+      deepRatio: () => "×" + dp.ratio.toFixed(2), deepShare: () => pct(dp.pctHot), deepArea: () => pct(dp.pctArea),
+      chi: () => "χ² = " + B.chi2.chi2.toFixed(2) + ", dof " + B.chi2.dof + ", p < 0.001, Cramér’s V = " + B.chi2.cramersV.toFixed(2),
+      rhoPinggir: () => rho(kec.find((k) => k.name === "Pinggir").rho), rhoMandau: () => rho(kec.find((k) => k.name === "Mandau").rho)
+    };
+    $$("[data-b]").forEach((el) => { const f = bind[el.dataset.b]; el.textContent = f ? f() : "?"; });
+
+    const names = kec.map((k) => k.name);
+    mk("b-kec", { type: "bar", data: { labels: names, datasets: [
+      { label: "Inside peat", data: kec.map((k) => k.inPeat), backgroundColor: C.peat },
+      { label: "Outside peat", data: kec.map((k) => k.outPeat), backgroundColor: C.neutral } ] },
+      options: { indexAxis: "y", plugins: { tooltip: { callbacks: { footer: (it) => "Total " + fmt(kec[it[0].dataIndex].total) } } },
+        scales: { x: { stacked: true, title: axisTitle("Hotspots, 2015–2024") , grid: { color: "rgba(37,35,31,.08)" } }, y: { stacked: true, grid: { display: false } } } } });
+
+    mk("b-year", { type: "bar", plugins: [barValues], data: { labels: B.years.map((y) => y.year), datasets: [{ data: B.years.map((y) => y.total), backgroundColor: C.ember }] },
+      options: { layout: { padding: { top: 18 } }, plugins: { legend: { display: false }, barValues: { fmt: (v) => fmt(v) },
+        tooltip: { callbacks: { label: (it) => fmt(it.parsed.y) + " hotspots, " + B.years[it.dataIndex].inPeat + " in peat" } } },
+        scales: { x: { grid: { display: false } }, y: { beginAtZero: true, title: axisTitle("Hotspots per year") } } } });
+
+    const ord = kec.map((k, i) => i).sort((a, b) => kec[b].rho - kec[a].rho);
+    mk("b-rho", { type: "bar", plugins: [barValues], data: { labels: ord.map((i) => kec[i].name), datasets: [{
+      data: ord.map((i) => kec[i].rho),
+      backgroundColor: ord.map((i) => (kec[i].sig === "ns" ? "transparent" : C.elnino)), borderColor: C.elnino, borderWidth: 2 }] },
+      options: { indexAxis: "y", layout: { padding: { right: 34 } }, plugins: { legend: { display: false }, barValues: { fmt: (v) => v.toFixed(2) },
+        tooltip: { callbacks: { label: (it) => "ρ = " + it.parsed.x.toFixed(4) + (kec[ord[it.dataIndex]].sig === "ns" ? " (not significant)" : " " + kec[ord[it.dataIndex]].sig) } } },
+        scales: { x: { min: 0, max: 0.5, title: axisTitle("Spearman ρ, ONI vs monthly hotspots"), grid: { color: "rgba(37,35,31,.08)" } }, y: { grid: { display: false } } } } });
+
+    $("#b-depth").innerHTML = "<thead><tr><th>Depth class</th><th>Hotspots</th><th>Share of hotspots</th><th>Share of peat area</th><th>Ratio</th></tr></thead><tbody>" +
+      B.depth.map((d) => '<tr><td>' + d.cls.replace("<", "under ").replace(">", "over ") + "</td><td>" + fmt(d.n) + "</td><td>" + pct(d.pctHot) + "</td><td>" + pct(d.pctArea) + '</td><td class="' + (d.ratio > 1.5 ? "sig" : "") + '">' + d.ratio.toFixed(2) + "</td></tr>").join("") + "</tbody>";
+  })();
 })();

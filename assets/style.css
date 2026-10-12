@@ -205,3 +205,10 @@ footer a { color: #9cc9de; }
   body { font-size: 17px; }
   .bar .name { font-size: 15px; }
 }
+
+/* ---- bengkalis case study ---- */
+#bengkalis { background: var(--haze-2); }
+.eyebrow { font-family: var(--display); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ember-deep); margin: 0 0 8px; }
+#bengkalis .split { margin-top: 22px; }
+#bengkalis th:first-child, #bengkalis td:first-child { background: var(--haze-2); }
+#bengkalis .split .copy { position: static; }
