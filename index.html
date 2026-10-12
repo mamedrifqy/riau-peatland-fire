@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riau peatland fire, 2015–2024</title>
+<meta name="description" content="Hotspot counts for 12 Riau regencies and cities over 120 months, compared with peat area, rainfall, temperature and the El Niño cycle. Every figure is drawn from the report's own data.">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="name" href="#top">Riau peatland fire</a>
+    <nav aria-label="Sections">
+      <a href="#where">Where</a>
+      <a href="#when">When</a>
+      <a href="#elnino">El Niño</a>
+      <a href="#explorer">Explorer</a>
+      <a href="#meaning">What it means</a>
+      <a href="#data">Data and method</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="hero" id="top">
+  <div class="wrap">
+    <h1>Fire in Riau’s peatlands, month by month</h1>
+    <p class="dek">Hotspot counts for 12 regencies and cities over 120 months, 2015 to 2024, set against the El Niño cycle.</p>
+
+    <figure class="heat-figure" aria-labelledby="heat-cap">
+      <figcaption id="heat-cap" class="sr-only">Heat map of monthly hotspot counts. Rows are regencies ordered by total hotspots; columns are months from January 2015 to December 2024. A strip above shows the ENSO phase of each month. The data are available as a CSV download in the Data and method section.</figcaption>
+      <canvas id="heat" role="img" aria-label="Heat map: monthly hotspots in 12 Riau regencies, 2015 to 2024. The darkest cells cluster in the second half of 2015 and of 2019."></canvas>
+      <div class="tip" id="heat-tip" role="status"></div>
+      <div class="heat-legend" aria-hidden="true">
+        <span class="ramp">Hotspots in a month
+          <span id="ramp-swatches" class="swatches"></span>
+        </span>
+        <span class="phase"><i style="background:var(--elnino)"></i>El Niño month</span>
+        <span class="phase"><i style="background:var(--neutral)"></i>Neutral</span>
+        <span class="phase"><i style="background:var(--tarn)"></i>La Niña month</span>
+      </div>
+    </figure>
+
+    <div class="lede-facts">
+      <p>Across the 12 regencies the report records <strong data-v="totalHotspots"></strong> hotspots in ten years. <strong data-v="y2015"></strong> of them fall in 2015 and <strong data-v="y2019"></strong> in 2019, the two years the map above is darkest.</p>
+      <p>About half (<strong data-v="top3Share"></strong>) sit in three regencies: <span data-v="top3Names"></span>. Months in an El Niño phase averaged <strong data-v="phElNino"></strong> hotspots per regency; La Niña months averaged <strong data-v="phLaNina"></strong>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ WHERE ============================ -->
+<section id="where">
+  <div class="wrap split">
+    <div class="copy">
+      <h2>Fire follows peat, but not evenly</h2>
+      <p>Across the 12 regencies, mapped peat area tracks average monthly hotspots closely: rank correlation <strong data-v="areaRho"></strong> (p = <span data-v="areaP"></span>, n = 12). Squared, that is <strong data-v="areaRho2"></strong>. A correlation is not a share of variance explained.</p>
+      <p>The order of regencies is not the order of peat area. Siak has the most peat (<span data-v="siakPeat"></span> ha) and ranks <span data-v="siakHotRank"></span> for hotspots (<span data-v="siakHot"></span>). Bengkalis has <span data-v="bkPeat"></span> ha and recorded <span data-v="bkHot"></span>. The three regencies with the most peat hold <strong data-v="top3AreaShare"></strong> of all hotspots; the three with the most hotspots hold <strong data-v="top3Share"></strong>.</p>
+      <p class="caveat"><b>What the counts include.</b> Hotspot counts cover each regency’s whole territory, not only its peat. Kuantan Singingi has no mapped peat in the report, yet <span data-v="kuansingHot"></span> hotspots. Bigger regencies have more land to burn, so peat area and regency size are tangled together, and the report has no land-area column to separate them.</p>
+    </div>
+    <div>
+      <figure>
+        <figcaption><b>Peat area against average monthly hotspots</b>, one point per regency. The hollow point is Kuantan Singingi, which has no mapped peat.</figcaption>
+        <div class="chart h-380"><canvas id="c-area" role="img" aria-label="Scatter plot of peat area against average monthly hotspots for 12 regencies; hotspots rise with peat area."></canvas></div>
+      </figure>
+      <figure>
+        <figcaption><b>Peat area rank and hotspot rank</b>, 2015–2024. The last column is a crude rate, because hotspots are not limited to peat.</figcaption>
+        <div class="table-scroll"><table id="t-rank"></table></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHEN ============================ -->
+<section id="when">
+  <div class="wrap split">
+    <div class="copy">
+      <h2>Rain moves with fire in the same month</h2>
+      <p>Pooling all <span data-v="nObs"></span> regency-months, hotspot counts fall as rainfall rises: <strong data-v="poolRain"></strong>. Land surface temperature (<span data-v="poolLst"></span>) and the ENSO index (<span data-v="poolOni"></span>) are weaker. The rainfall z-score that the report calls an SPI proxy gives <span data-v="poolSpi"></span>.</p>
+      <p>The link is strongest when rain and hotspots are measured in the same month. With rainfall leading by one month the correlation is <strong data-v="lag1"></strong>; at two months, <strong data-v="lag2"></strong>; at three months it is close to zero (<span data-v="lag3"></span>). Temperature and the ENSO index change little with lag.</p>
+      <p>Fire also follows the calendar: July to September holds <strong data-v="julSep"></strong> of a typical year’s hotspots, with a smaller peak in March.</p>
+      <p class="caveat"><b>What this does and does not show.</b> Pooled correlations mix the seasonal cycle with differences between years, and rainfall here is a monthly total. They show association, not forecast skill. Kampar and Pekanbaru carry one identical climate series in the report; leaving Pekanbaru out moves the rainfall result to <span data-v="poolRainNoPek"></span>.</p>
+    </div>
+    <div>
+      <figure>
+        <figcaption><b>Correlation of each variable with monthly hotspots</b>, Spearman ρ, all 12 regencies pooled (n = 1,440).</figcaption>
+        <div class="chart h-200"><canvas id="c-pooled" role="img" aria-label="Bar chart of Spearman correlations with hotspots: rainfall minus 0.42, SPI proxy minus 0.38, land surface temperature plus 0.28, ONI plus 0.20."></canvas></div>
+      </figure>
+      <figure>
+        <figcaption><b>Correlation with hotspots by lead time.</b> Positive months: the variable is measured that many months before the hotspots. Negative months: after.</figcaption>
+        <div class="chart h-320"><canvas id="c-lag" role="img" aria-label="Line chart of correlation against lead time. Rainfall peaks in magnitude at lag zero and fades to near zero by three months; temperature and ONI stay flat."></canvas></div>
+      </figure>
+      <figure>
+        <figcaption><b>Hotspots by calendar month</b>, average per year across all 12 regencies.</figcaption>
+        <div class="chart h-260"><canvas id="c-season" role="img" aria-label="Bar chart of average yearly hotspots by calendar month, highest from July to September."></canvas></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ EL NIÑO ============================ -->
+<section id="elnino">
+  <div class="wrap split">
+    <div class="copy">
+      <h2>El Niño raises the baseline</h2>
+      <p>Months in an El Niño phase averaged <strong data-v="phElNino"></strong> hotspots per regency, neutral months <span data-v="phNeutral"></span> and La Niña months <span data-v="phLaNina"></span>. That is <strong data-v="phRatio"></strong> as many under El Niño as under La Niña.</p>
+      <p>Temperature responds to phase in every regency (η² from <span data-v="lstEtaMin"></span> to <span data-v="lstEtaMax"></span>, all p &lt; 0.001). Hotspots respond clearly in <strong data-v="hotSig"></strong> of 12. The difference is not clear in <span data-v="hotNs"></span>.</p>
+      <p>The ENSO index alone correlates weakly with monthly counts (ρ = <span data-v="poolOniPlain"></span>), so the El Niño effect reads as a shift in the baseline, not a monthly switch.</p>
+      <p class="caveat"><b>How phases are defined here.</b> Each month is classed by its own ONI value against ±0.5 °C, as coloured in the report. NOAA’s rule needs five consecutive months; this report does not apply it, since August to November 2016 is coloured La Niña after only four. The report does not state its ONI source; its values peak at 2.75 °C in December 2015, a little above NOAA’s published ONI maximum of 2.6 °C.</p>
+    </div>
+    <div>
+      <figure>
+        <figcaption><b>Average hotspots per regency-month</b> by ENSO phase, all 12 regencies. Months in each phase: <span data-v="phMonths"></span>.</figcaption>
+        <div class="chart h-200"><canvas id="c-phase" role="img" aria-label="Bar chart of average monthly hotspots by ENSO phase: La Niña 9.3, neutral 22.1, El Niño 31.2."></canvas></div>
+      </figure>
+      <figure>
+        <figcaption><b>Average monthly hotspots by phase and regency</b>, ordered by the El Niño value.</figcaption>
+        <div class="chart h-520"><canvas id="c-regphase" role="img" aria-label="Grouped bar chart of average monthly hotspots by ENSO phase for each regency."></canvas></div>
+      </figure>
+      <figure>
+        <figcaption><b>Kruskal-Wallis tests across ENSO phases</b>, as printed in the report. η² is the effect size; * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001.</figcaption>
+        <div class="table-scroll"><table id="t-kw"></table></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ EXPLORER ============================ -->
+<section id="explorer">
+  <div class="wrap">
+    <div class="exp-head">
+      <div>
+        <h2>Explore one regency</h2>
+        <p style="margin:0;max-width:52ch">Pick a regency to see its own series for every month, and how it behaves across ENSO phases.</p>
+      </div>
+      <div class="pills" id="pills" role="group" aria-label="Regency"></div>
+    </div>
+    <dl class="facts" id="facts"></dl>
+    <p class="notice" id="notice" hidden></p>
+    <div class="tabs" role="tablist" id="tabs" aria-label="Chart groups">
+      <button role="tab" aria-selected="true" aria-controls="p-series" id="tab-series" data-tab="series">Over time</button>
+      <button role="tab" aria-selected="false" aria-controls="p-oni" id="tab-oni" data-tab="oni" tabindex="-1">Against ONI</button>
+      <button role="tab" aria-selected="false" aria-controls="p-phase" id="tab-phase" data-tab="phase" tabindex="-1">By ENSO phase</button>
+      <button role="tab" aria-selected="false" aria-controls="p-peat" id="tab-peat" data-tab="peat" tabindex="-1">Peat and season</button>
+    </div>
+
+    <div class="panel" id="p-series" role="tabpanel" aria-labelledby="tab-series">
+      <figure><figcaption><b>ENSO index</b> by month. Bar colour is the phase.</figcaption><div class="chart h-200"><canvas id="e-oni" role="img" aria-label="Monthly ONI bars coloured by ENSO phase."></canvas></div></figure>
+      <figure><figcaption><b>Rainfall and hotspots.</b> Rainfall in mm on the left axis, hotspots on the right.</figcaption><div class="chart h-320"><canvas id="e-rainhot" role="img" aria-label="Monthly rainfall and hotspot counts for the selected regency."></canvas></div></figure>
+      <figure><figcaption><b>Land surface temperature</b>, °C.</figcaption><div class="chart h-200"><canvas id="e-lst" role="img" aria-label="Monthly land surface temperature for the selected regency."></canvas></div></figure>
+    </div>
+
+    <div class="panel" id="p-oni" role="tabpanel" aria-labelledby="tab-oni" hidden>
+      <div class="grid-2">
+        <figure><figcaption id="cap-sc-lst"></figcaption><div class="chart h-320"><canvas id="e-sc-lst" role="img" aria-label="Scatter of ONI against land surface temperature."></canvas></div></figure>
+        <figure><figcaption id="cap-sc-rain"></figcaption><div class="chart h-320"><canvas id="e-sc-rain" role="img" aria-label="Scatter of ONI against rainfall."></canvas></div></figure>
+        <figure><figcaption id="cap-sc-hot"></figcaption><div class="chart h-320"><canvas id="e-sc-hot" role="img" aria-label="Scatter of ONI against hotspots."></canvas></div></figure>
+        <figure><figcaption><b>Reading the scatters.</b> Each dot is one month. Colour is the ENSO phase. ρ is the Spearman rank correlation printed in the report.</figcaption>
+          <div class="heat-legend" style="margin-top:6px"><span class="phase"><i style="background:var(--elnino)"></i>El Niño</span><span class="phase"><i style="background:var(--neutral)"></i>Neutral</span><span class="phase"><i style="background:var(--tarn)"></i>La Niña</span></div></figure>
+      </div>
+    </div>
+
+    <div class="panel" id="p-phase" role="tabpanel" aria-labelledby="tab-phase" hidden>
+      <div class="grid-3">
+        <figure><figcaption id="cap-ph-hot"></figcaption><div class="chart h-320"><canvas id="e-ph-hot" role="img" aria-label="Hotspots by ENSO phase."></canvas></div></figure>
+        <figure><figcaption id="cap-ph-lst"></figcaption><div class="chart h-320"><canvas id="e-ph-lst" role="img" aria-label="Land surface temperature by ENSO phase."></canvas></div></figure>
+        <figure><figcaption id="cap-ph-rain"></figcaption><div class="chart h-320"><canvas id="e-ph-rain" role="img" aria-label="Rainfall by ENSO phase."></canvas></div></figure>
+      </div>
+      <p style="font:14px/1.5 var(--display);color:var(--char-2);max-width:80ch;margin:0">Bars span the middle half of months (25th to 75th percentile). The line is the median and the diamond is the mean. Hover for the maximum.</p>
+    </div>
+
+    <div class="panel" id="p-peat" role="tabpanel" aria-labelledby="tab-peat" hidden>
+      <div class="grid-2">
+        <figure><figcaption id="cap-depth"></figcaption><div class="chart h-320"><canvas id="e-depth" role="img" aria-label="Peat area by depth class."></canvas></div></figure>
+        <figure><figcaption><b>Hotspots by calendar month</b>, average per year for this regency.</figcaption><div class="chart h-320"><canvas id="e-season" role="img" aria-label="Average hotspots by calendar month for the selected regency."></canvas></div></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MEANING ============================ -->
+<section id="meaning">
+  <div class="wrap">
+    <h2>What the data supports</h2>
+    <div class="points">
+      <article class="point">
+        <h3>Rank regencies by observed hotspots, not peat area alone</h3>
+        <div>
+          <p>The three regencies with the most peat (<span data-v="top3AreaNames"></span>) hold <strong data-v="top3AreaShare"></strong> of all hotspots. The three with the most hotspots (<span data-v="top3Names"></span>) hold <strong data-v="top3Share"></strong>. Siak, first by peat, is <span data-v="siakHotRank"></span> by hotspots.</p>
+          <p class="limit"><b>Not in this report:</b> burned area, land cover, drainage and regency land area. Those decide whether a hotspot is a peat fire.</p>
+        </div>
+      </article>
+      <article class="point">
+        <h3>Treat rainfall as a same-month trigger with a short lead</h3>
+        <div>
+          <p>Rainfall’s correlation with hotspots is <span data-v="lag0"></span> in the same month, <span data-v="lag1"></span> with one month of lead, <span data-v="lag2"></span> with two, and close to zero from three months. Rainfall acts fastest in the same month, but a shortfall one or two months earlier still carries signal.</p>
+          <p class="limit"><b>Not tested here:</b> forecast skill, daily rainfall, or a threshold for action. The data are monthly and pooled.</p>
+        </div>
+      </article>
+      <article class="point">
+        <h3>Plan for El Niño years as a higher baseline</h3>
+        <div>
+          <p>El Niño months carry <span data-v="phRatio"></span> the hotspots of La Niña months. 2015 and 2019 together account for <strong data-v="y1519Share"></strong> of ten years of hotspots.</p>
+          <p class="limit"><b>Not tested here:</b> whether rewetting, canal blocking or patrols change any of this. That needs intervention data, which the report does not contain.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DATA ============================ -->
+<section id="data">
+  <div class="wrap">
+    <h2>Data and method</h2>
+    <div class="cols">
+      <div>
+        <h3>Where the numbers come from</h3>
+        <p>Every figure on this page comes from one source: the 60-page <em>Laporan Korelasi Iklim, Gambut &amp; Hotspot</em> for 12 kabupaten and kota in Riau (Regional Peatland Report 2026), five pages per regency. The report prints its statistics and draws each monthly series as a chart.</p>
+        <p>The monthly values here were read from the report’s vector charts, not estimated by eye. Each plotted point was converted to a value using the chart’s axis ticks. Hotspot counts came out as exact whole numbers in all 12 regencies, which is the check that the conversion is right.</p>
+        <p>The page then recomputed <strong data-v="nChecks"></strong> coefficients the report prints (Spearman ρ and p, Kruskal-Wallis H, p and η² for every regency, plus the cross-regency peat correlations). <strong data-v="nOk"></strong> match to the printed precision. The extraction and checks are in <code>build/</code>; run them to reproduce everything.</p>
+        <ul class="downloads">
+          <li><a href="data/riau_monthly_panel.csv" download>Monthly data (CSV)</a></li>
+          <li><a href="data/peat_depth_classes.csv" download>Peat depth classes (CSV)</a></li>
+          <li><a href="data/derived_stats.json" download>Derived statistics (JSON)</a></li>
+          <li><a href="data/validation.json" download>Validation (JSON)</a></li>
+          <li><a href="data/source/laporan-korelasi-iklim-gambut-hotspot-12-kabupaten.pdf">Source report (PDF)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Limits to keep in mind</h3>
+        <ul>
+          <li><b>Kampar and Pekanbaru share one climate series.</b> Their rainfall and temperature are identical in all 120 months, so Pekanbaru is not an independent observation. Their hotspot counts differ.</li>
+          <li><b>Kuantan Singingi has no mapped peat</b> in the report but 529 hotspots, so hotspot counts are regency-wide rather than peat-only.</li>
+          <li><b>The SPI proxy is a z-score of monthly rainfall</b> over the 120 months, not a drought index with a fitted distribution and not SPEI. It ranks months exactly as rainfall does.</li>
+          <li><b>The cross-regency result rests on 12 points,</b> and each point is a regency average. It says nothing about single fires.</li>
+          <li><b>Monthly resolution.</b> A “zero-lag” result means the same calendar month, which can hide a lead of days or weeks.</li>
+          <li><b>The report does not name its hotspot, rainfall and temperature products,</b> so this page cannot either. Check the original data pipeline for the product names and versions.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Source: Regional Peatland Report 2026, <em>Laporan Korelasi Iklim, Gambut &amp; Hotspot</em>, 12 Kabupaten/Kota Riau, 2015–2024. Methods: Spearman ρ, Kendall τ-b, Kruskal-Wallis H, lagged correlation. Monthly series recovered from the report’s charts; see Data and method.
+  </div>
+</footer>
+
+<script src="assets/vendor/chart.umd.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

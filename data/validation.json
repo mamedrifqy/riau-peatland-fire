@@ -1,0 +1,13 @@
+{
+ "n_checks": 207,
+ "n_match": 207,
+ "mismatches": [],
+ "hotspot_integer_error_max": 0.0,
+ "identical_climate_series": [
+  [
+   "Pekanbaru",
+   "Kampar"
+  ]
+ ],
+ "note": "Every coefficient is recomputed from the recovered monthly series and compared with the value printed in the report (tolerance = printed rounding)."
+}

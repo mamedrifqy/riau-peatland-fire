@@ -1,0 +1,272 @@
+{
+ "n_months": 120,
+ "n_obs": 1440,
+ "total_hotspots": 30988,
+ "total_peat_ha": 4303902,
+ "pooled_all12": {
+  "rain": {
+   "rho": -0.423,
+   "p": 1.3780905974868896e-63,
+   "n": 1440
+  },
+  "spi": {
+   "rho": -0.377,
+   "p": 6.042784450500494e-50,
+   "n": 1440
+  },
+  "lst": {
+   "rho": 0.28,
+   "p": 2.05244962985635e-27,
+   "n": 1440
+  },
+  "oni": {
+   "rho": 0.203,
+   "p": 8.214733423802068e-15,
+   "n": 1440
+  }
+ },
+ "pooled_without_pekanbaru": {
+  "rain": {
+   "rho": -0.476,
+   "p": 1.2657464507542175e-75,
+   "n": 1320
+  },
+  "spi": {
+   "rho": -0.426,
+   "p": 3.009497557153567e-59,
+   "n": 1320
+  },
+  "lst": {
+   "rho": 0.244,
+   "p": 2.1291875830347433e-19,
+   "n": 1320
+  },
+  "oni": {
+   "rho": 0.229,
+   "p": 3.819880596670575e-17,
+   "n": 1320
+  }
+ },
+ "lag": {
+  "lags": [
+   -6,
+   -5,
+   -4,
+   -3,
+   -2,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "rain": [
+   -0.133,
+   -0.112,
+   -0.093,
+   -0.04,
+   -0.13,
+   -0.165,
+   -0.423,
+   -0.314,
+   -0.219,
+   -0.058,
+   -0.044,
+   -0.062,
+   -0.129
+  ],
+  "lst": [
+   0.198,
+   0.158,
+   0.169,
+   0.212,
+   0.264,
+   0.282,
+   0.28,
+   0.233,
+   0.219,
+   0.217,
+   0.215,
+   0.201,
+   0.128
+  ],
+  "oni": [
+   0.118,
+   0.122,
+   0.141,
+   0.156,
+   0.164,
+   0.184,
+   0.203,
+   0.213,
+   0.213,
+   0.211,
+   0.198,
+   0.174,
+   0.145
+  ]
+ },
+ "seasonal_mean_hotspots_by_calendar_month": [
+  77.3,
+  235.2,
+  378.8,
+  174.0,
+  117.8,
+  162.7,
+  492.5,
+  632.1,
+  583.4,
+  166.5,
+  43.4,
+  35.1
+ ],
+ "annual_hotspots": {
+  "2015": 9388,
+  "2016": 3456,
+  "2017": 1128,
+  "2018": 2836,
+  "2019": 7935,
+  "2020": 1770,
+  "2021": 1421,
+  "2022": 688,
+  "2023": 1276,
+  "2024": 1090
+ },
+ "peak_month": {
+  "month": "2015-07",
+  "hotspots": 2810
+ },
+ "phase": {
+  "n_months": {
+   "La Nina": 36,
+   "Netral": 41,
+   "El Nino": 43
+  },
+  "mean_hotspots_per_regency_month": {
+   "La Nina": 9.3472,
+   "Netral": 22.1016,
+   "El Nino": 31.155
+  },
+  "mean_lst": {
+   "La Nina": 26.174,
+   "Netral": 26.523,
+   "El Nino": 26.706
+  },
+  "mean_rain": {
+   "La Nina": 260.23,
+   "Netral": 226.57,
+   "El Nino": 222.68
+  },
+  "elnino_to_lanina_ratio": 3.33
+ },
+ "area_vs_hotspot": {
+  "rho": 0.86,
+  "p": 0.000331668339126921,
+  "rho_squared": 0.74,
+  "pearson_r": 0.831,
+  "pearson_r2": 0.691,
+  "rho_excluding_zero_peat": 0.827,
+  "p_excluding_zero_peat": 0.0016769738964523809
+ },
+ "area_vs_lst": {
+  "rho": 0.445,
+  "p": 0.14733869871238864
+ },
+ "ranking": {
+  "by_area": [
+   "siak",
+   "pelalawan",
+   "indragiri-hilir",
+   "bengkalis",
+   "rokan-hilir",
+   "indragiri-hulu",
+   "kepulauan-meranti",
+   "dumai",
+   "rokan-hulu",
+   "kampar",
+   "pekanbaru",
+   "kuantan-singingi"
+  ],
+  "by_hotspots": [
+   "pelalawan",
+   "bengkalis",
+   "rokan-hilir",
+   "indragiri-hilir",
+   "indragiri-hulu",
+   "siak",
+   "kepulauan-meranti",
+   "dumai",
+   "kampar",
+   "rokan-hulu",
+   "kuantan-singingi",
+   "pekanbaru"
+  ],
+  "top3_area_share_of_hotspots": 41.8,
+  "top3_hotspot_share_of_hotspots": 50.7
+ },
+ "hotspots_per_100k_ha": {
+  "rokan-hulu": 841.3,
+  "siak": 309.3,
+  "dumai": 619.8,
+  "pekanbaru": 831.2,
+  "rokan-hilir": 1065.3,
+  "pelalawan": 804.5,
+  "kuantan-singingi": null,
+  "kepulauan-meranti": 616.6,
+  "kampar": 1407.5,
+  "indragiri-hulu": 886.6,
+  "indragiri-hilir": 613.4,
+  "bengkalis": 868.8
+ },
+ "hotspots_total_by_regency": {
+  "rokan-hulu": 750,
+  "siak": 2570,
+  "dumai": 1595,
+  "pekanbaru": 45,
+  "rokan-hilir": 4140,
+  "pelalawan": 6575,
+  "kuantan-singingi": 529,
+  "kepulauan-meranti": 1754,
+  "kampar": 1013,
+  "indragiri-hulu": 3215,
+  "indragiri-hilir": 3821,
+  "bengkalis": 4981
+ },
+ "reported_global": {
+  "Median Kedalaman (ord.) vs Avg Hotspot": {
+   "r": 0.312,
+   "sig": "ns",
+   "p": 0.2,
+   "method": "Kendall -b"
+  },
+  "Median Kedalaman (ord.) vs Avg LST": {
+   "r": 0.37,
+   "sig": "ns",
+   "p": 0.131,
+   "method": "Kendall -b"
+  },
+  "Median Kedalaman (ord.) vs Avg ONI": null,
+  "Median Kedalaman (ord.) vs Avg Curah Hujan": {
+   "r": -0.592,
+   "sig": "*",
+   "p": 0.016,
+   "method": "Kendall -b"
+  },
+  "Luas Gambut (ha) vs Avg Hotspot": {
+   "r": 0.86,
+   "sig": "***",
+   "p": 0.0,
+   "method": "Spearman"
+  },
+  "Luas Gambut (ha) vs Avg LST": {
+   "r": 0.445,
+   "sig": "ns",
+   "p": 0.147,
+   "method": "Spearman"
+  },
+  "Luas Gambut (ha) vs Avg ONI": null
+ }
+}

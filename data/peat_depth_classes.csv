@@ -1,0 +1,73 @@
+regency,depth_class_cm,area_ha,share_pct
+Rokan Hulu,50 <100 cm,6693,7.5
+Rokan Hulu,100 <200 cm,33419,37.5
+Rokan Hulu,200 <300 cm,5337,6.0
+Rokan Hulu,300 <500 cm,26133,29.3
+Rokan Hulu,500 <700 cm,17565,19.7
+Rokan Hulu,>700 cm,0,0.0
+Siak,50 <100 cm,14702,1.8
+Siak,100 <200 cm,16624,2.0
+Siak,200 <300 cm,80541,9.7
+Siak,300 <500 cm,180774,21.8
+Siak,500 <700 cm,295130,35.5
+Siak,>700 cm,243017,29.3
+Dumai,50 <100 cm,15314,6.0
+Dumai,100 <200 cm,10356,4.0
+Dumai,200 <300 cm,82078,31.9
+Dumai,300 <500 cm,80498,31.3
+Dumai,500 <700 cm,25776,10.0
+Dumai,>700 cm,43334,16.8
+Pekanbaru,50 <100 cm,0,0.0
+Pekanbaru,100 <200 cm,742,13.7
+Pekanbaru,200 <300 cm,2033,37.5
+Pekanbaru,300 <500 cm,2639,48.8
+Pekanbaru,500 <700 cm,0,0.0
+Pekanbaru,>700 cm,0,0.0
+Rokan Hilir,50 <100 cm,45614,11.7
+Rokan Hilir,100 <200 cm,131213,33.8
+Rokan Hilir,200 <300 cm,130557,33.6
+Rokan Hilir,300 <500 cm,60161,15.5
+Rokan Hilir,500 <700 cm,14559,3.7
+Rokan Hilir,>700 cm,6520,1.7
+Pelalawan,50 <100 cm,20808,2.5
+Pelalawan,100 <200 cm,105658,12.9
+Pelalawan,200 <300 cm,156267,19.1
+Pelalawan,300 <500 cm,193850,23.7
+Pelalawan,500 <700 cm,194059,23.7
+Pelalawan,>700 cm,146672,17.9
+Kuantan Singingi,50 <100 cm,0,0.0
+Kuantan Singingi,100 <200 cm,0,0.0
+Kuantan Singingi,200 <300 cm,0,0.0
+Kuantan Singingi,300 <500 cm,0,0.0
+Kuantan Singingi,500 <700 cm,0,0.0
+Kuantan Singingi,>700 cm,0,0.0
+Kepulauan Meranti,50 <100 cm,2269,0.8
+Kepulauan Meranti,100 <200 cm,3713,1.3
+Kepulauan Meranti,200 <300 cm,39323,13.8
+Kepulauan Meranti,300 <500 cm,128028,45.0
+Kepulauan Meranti,500 <700 cm,111108,39.1
+Kepulauan Meranti,>700 cm,0,0.0
+Kampar,50 <100 cm,0,0.0
+Kampar,100 <200 cm,14019,19.5
+Kampar,200 <300 cm,20206,28.1
+Kampar,300 <500 cm,35668,49.6
+Kampar,500 <700 cm,2079,2.9
+Kampar,>700 cm,0,0.0
+Indragiri Hulu,50 <100 cm,6350,1.8
+Indragiri Hulu,100 <200 cm,15214,4.2
+Indragiri Hulu,200 <300 cm,62357,17.2
+Indragiri Hulu,300 <500 cm,166460,45.9
+Indragiri Hulu,500 <700 cm,75792,20.9
+Indragiri Hulu,>700 cm,36457,10.1
+Indragiri Hilir,50 <100 cm,76920,12.3
+Indragiri Hilir,100 <200 cm,211804,34.0
+Indragiri Hilir,200 <300 cm,100111,16.1
+Indragiri Hilir,300 <500 cm,144334,23.2
+Indragiri Hilir,500 <700 cm,58349,9.4
+Indragiri Hilir,>700 cm,31402,5.0
+Bengkalis,50 <100 cm,47733,8.3
+Bengkalis,100 <200 cm,100107,17.5
+Bengkalis,200 <300 cm,67539,11.8
+Bengkalis,300 <500 cm,92977,16.2
+Bengkalis,500 <700 cm,168586,29.4
+Bengkalis,>700 cm,96352,16.8
