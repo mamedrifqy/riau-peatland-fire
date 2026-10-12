@@ -262,3 +262,13 @@ footer a { color: #9cc9de; }
 #b-svg .reg:focus-visible { outline: none; stroke: var(--focus); stroke-width: 5; }
 #b-svg .lab { font-family: var(--display); font-size: 20px; font-weight: 700; fill: var(--char); paint-order: stroke; stroke: rgba(244,245,241,.85); stroke-width: 5px; }
 @media (max-width: 600px) { #b-svg .lab { font-size: 22px; stroke-width: 6px; } .seg button { padding: 8px 11px; font-size: 13px; } }
+
+/* ---- bengkalis points map ---- */
+.bk-points { margin-top: clamp(36px, 5vw, 60px); padding-top: 28px; border-top: 1px solid var(--ash); }
+.bk-points h3 { margin: 0 0 8px; }
+.bp-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-bottom: 18px; }
+.bp-sel, .bp-chk { font-family: var(--display); font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+.bp-sel select { font: inherit; padding: 7px 10px; border: 1px solid var(--char-2); border-radius: 4px; background: var(--haze); color: var(--char); }
+#bp-svg { display: block; width: 100%; height: auto; max-height: 72vh; border-radius: 4px; }
+#bp-svg .kk { pointer-events: all; cursor: pointer; }
+#bp-svg .kk:hover { stroke: var(--char); stroke-width: 2.4; }

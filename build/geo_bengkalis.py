@@ -38,7 +38,7 @@ def anchor(gm):
     p = big.representative_point(); return X(p.x), Y(p.y)
 regs = {n: {"d": path(geoms[n]), "cx": anchor(geoms[n])[0], "cy": anchor(geoms[n])[1], "villages": len(groups[n])} for n in names}
 W, H = 1000, round((maxy - miny) * S, 1)
-js = "window.BKL_GEO = " + json.dumps({"w": W, "h": H, "source": "Village boundaries (TASWIL 2022) dissolved to kecamatan, simplified", "kecamatan": regs}, ensure_ascii=False, separators=(",", ":")) + ";\n"
+js = "window.BKL_GEO = " + json.dumps({"w": W, "h": H, "proj": {"minx": minx, "maxy": maxy, "k": k, "S": S}, "source": "Village boundaries (TASWIL 2022) dissolved to kecamatan, simplified", "kecamatan": regs}, ensure_ascii=False, separators=(",", ":")) + ";\n"
 (ROOT / "assets" / "bengkalis-geo.js").write_text(js)
 fc = {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"kecamatan": n, "villages": len(groups[n])}, "geometry": mapping(geoms[n])} for n in names]}
 (ROOT / "data" / "bengkalis_kecamatan_simplified.geojson").write_text(json.dumps(fc, separators=(",", ":")))

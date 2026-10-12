@@ -39,3 +39,20 @@ assets/fonts, vendor  Archivo, Source Serif 4 (SIL OFL), Chart.js 4.4.1 (MIT), s
 data/                 CSVs, JSON, source PDF
 build/                extraction and derivation scripts
 ```
+
+## Bengkalis case study and maps
+
+Extra build steps (inputs are the thesis files, not stored here except as derived outputs):
+
+```
+python3 build/bengkalis.py                                   # tables transcribed from the thesis notebook, with sum checks
+python3 build/geo.py <GADM Riau regencies geojson>           # Riau regency outlines for the map
+python3 build/geo_bengkalis.py bengkalis.geojson             # 155 villages -> 11 kecamatan outlines
+python3 build/hotspots.py hotspotriau.geojson bengkalis.geojson   # DBSCAN filter; fails unless 12 notebook checkpoints
+                                                                    # and the report's Bengkalis series (120 months) match
+python3 build/peat.py gambut.geojson bengkalis.geojson       # peat layer and depth table
+```
+
+`build/peat.py` documents one correction to the thesis notebook: its depth table divided hotspot shares by the area
+shares of all 4,070 polygons in the national peat file instead of the peat inside Bengkalis. Both versions are
+reproduced in `data/bengkalis_peat_check.json`; the page uses the Bengkalis-only denominator.

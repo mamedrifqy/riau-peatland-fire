@@ -261,8 +261,8 @@
         <p>Two kecamatan, Rupat and Bandar Laksamana, hold <strong data-b="top2Share"></strong> of the points. Mandau, at the other end, has <span data-b="mandau"></span>. Time is just as uneven: 2015 and 2016 contain <strong data-b="y1516Share"></strong> of all hotspots, and 2017 has <span data-b="y2017"></span>.</p>
         <p>The ENSO signal is there but modest. Averaged over kecamatan-months, El Niño months carry <strong data-b="elNino"></strong> hotspots, neutral months <span data-b="neutral"></span> and La Niña months <span data-b="laNina"></span>. Across the three phases the Kruskal-Wallis test gives <span data-b="kw"></span>, a small effect. Only the La Niña versus El Niño pair stays significant after Benjamini-Hochberg correction (adjusted p = <span data-b="dunnAdj"></span>).</p>
         <p>The median is 0 in every phase, so most kecamatan-months have no hotspot at all. The phase difference lives in the tail: the 95th percentile is <span data-b="p95Nino"></span> in El Niño months against <span data-b="p95Nina"></span> in La Niña months.</p>
-        <p>Fire is concentrated in deep peat. Hotspots in the 500–700 cm class are <strong data-b="deepRatio"></strong> over-represented relative to its area (<span data-b="deepShare"></span> of hotspots on <span data-b="deepArea"></span> of the peat), and the χ² test against area is decisive (<span data-b="chi"></span>).</p>
-        <p class="caveat"><b>Not comparable with the regional report.</b> The report counts <span data-v="bkHot"></span> hotspots for Bengkalis regency; the thesis counts <span data-b="total"></span> after DBSCAN filtering and clipping to the administrative boundary, and takes its climate inputs from CHIRPS and ERA5-Land, while the report does not name its products. Treat the two as separate studies. The thesis table here is transcribed from the notebook’s printed output; the monthly kecamatan panel is not published on this page.</p>
+        <p>Hotspots are not spread evenly across peat depth. Measured against the peat that actually lies inside Bengkalis, the 500–700 cm class holds <strong data-b="deepShare"></strong> of hotspots on <strong data-b="deepArea"></strong> of the peat (ratio <span data-b="deepRatio"></span>). The 100–200 cm and 300–500 cm classes are slightly over-represented (<span data-b="r100"></span> and <span data-b="r300"></span>). Peat deeper than 700 cm, <span data-b="areaDeepest"></span> of the area, holds only <span data-b="hotDeepest"></span> of hotspots (<span data-b="ratioDeepest"></span>). A goodness-of-fit test against area rejects proportionality (<span data-b="chi"></span>).</p>
+        <p class="caveat"><b>Same source points, different filter.</b> The regional report’s Bengkalis series (<span data-v="bkHot"></span> hotspots) equals the raw MODIS count with confidence of 30% or more inside the Bengkalis boundary, month by month, in all 120 months. The thesis starts from the same points and keeps <span data-b="total"></span> after a DBSCAN filter: confidence of 70% or more as anchors, plus 50–69% points within 1.5 km of an anchor. Climate inputs in the thesis are CHIRPS and ERA5-Land; the report does not name its rainfall and temperature products.</p>
       </div>
       <div>
         <figure>
@@ -278,7 +278,7 @@
           <div class="chart h-380"><canvas id="b-rho" role="img" aria-label="Horizontal bar chart of rank correlation between the ONI and monthly hotspots for each kecamatan, from 0.14 in Pinggir to 0.38 in Siak Kecil."></canvas></div>
         </figure>
         <figure>
-          <figcaption><b>Hotspots against peat depth.</b> Ratio = share of hotspots divided by share of peat area; above 1 means more fire than area would suggest.</figcaption>
+          <figcaption><b>Hotspots against peat depth.</b> Area is peat inside Bengkalis, from the national peat map. Ratio = share of hotspots divided by share of peat area; above 1 means more fire than area would suggest.</figcaption>
           <div class="table-scroll"><table id="b-depth"></table></div>
         </figure>
         <p class="caveat"><b>The 2023 lag.</b> In 2023 the hotspot peak (April, 32 points, ONI +0.27) came one month before the thesis’s El Niño confirmation (May, ONI +0.57). In 2015 and 2019 the peaks fell inside months already classed as El Niño, so the “local fire precedes the global signal” pattern rests on one weak event.</p>
@@ -306,6 +306,29 @@
           <dl class="mi-facts" id="bm-facts"></dl>
         </aside>
       </div>
+
+      <div class="bk-points">
+        <h3>Every filtered hotspot, on the peat map</h3>
+        <p class="map-lede" style="margin-bottom:14px">All <span data-b="total"></span> hotspots kept by the thesis filter, drawn over peat depth. Choose a year, or a kecamatan to focus the points and the monthly chart.</p>
+        <div class="bp-ctl">
+          <div class="pills" id="bp-years" role="group" aria-label="Year"></div>
+          <label class="bp-sel">Kecamatan <select id="bp-kec"></select></label>
+          <label class="bp-chk"><input type="checkbox" id="bp-peat" checked> Peat depth</label>
+        </div>
+        <div class="map-grid">
+          <figure class="map-fig" id="bp-fig">
+            <svg id="bp-svg" role="img" aria-label="Map of Bengkalis with filtered hotspots drawn as dots over peat depth classes"></svg>
+            <div class="map-legend" id="bp-legend"></div>
+            <figcaption id="bp-cap"></figcaption>
+          </figure>
+          <div>
+            <figure>
+              <figcaption id="bp-chartcap"></figcaption>
+              <div class="chart h-260"><canvas id="bp-month" role="img" aria-label="Bar chart of filtered hotspots per month for the selected year and kecamatan."></canvas></div>
+            </figure>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -327,6 +350,8 @@
           <li><a href="data/validation.json" download>Validation (JSON)</a></li>
           <li><a href="data/riau_regencies_simplified.geojson" download>Regency outlines (GeoJSON)</a></li>
           <li><a href="data/bengkalis_kecamatan_simplified.geojson" download>Bengkalis kecamatan outlines (GeoJSON)</a></li>
+          <li><a href="data/bengkalis_hotspots_filtered.csv" download>Bengkalis filtered hotspots (CSV)</a></li>
+          <li><a href="data/bengkalis_peat_check.json" download>Bengkalis peat-depth check (JSON)</a></li>
           <li><a href="data/bengkalis_thesis.json" download>Bengkalis thesis tables (JSON)</a></li>
           <li><a href="data/source/laporan-korelasi-iklim-gambut-hotspot-12-kabupaten.pdf">Source report (PDF)</a></li>
         </ul>
@@ -339,7 +364,7 @@
           <li><b>The SPI proxy is a z-score of monthly rainfall</b> over the 120 months, not a drought index with a fitted distribution and not SPEI. It ranks months exactly as rainfall does.</li>
           <li><b>The cross-regency result rests on 12 points,</b> and each point is a regency average. It says nothing about single fires.</li>
           <li><b>Monthly resolution.</b> A “zero-lag” result means the same calendar month, which can hide a lead of days or weeks.</li>
-          <li><b>The report does not name its hotspot, rainfall and temperature products,</b> so this page cannot either. Check the original data pipeline for the product names and versions.</li>
+          <li><b>The report does not name its rainfall and temperature products,</b> so this page cannot either. The hotspot source is known from the raw file used for the Bengkalis case study: NASA MODIS active-fire points from Terra and Aqua, version 6.03 (31,867 of 34,542 points in 2015–2024) and 61.03 (2,675). The report’s Bengkalis series matches this file exactly at confidence of 30% or more; confirm the exact FIRMS download before citing a collection.</li>
         </ul>
       </div>
     </div>
@@ -357,6 +382,8 @@
 <script src="assets/data.js"></script>
 <script src="assets/riau-geo.js"></script>
 <script src="assets/bengkalis-geo.js"></script>
+<script src="assets/bengkalis-peat.js"></script>
+<script src="assets/bengkalis-points.js"></script>
 <script src="assets/bengkalis-data.js"></script>
 <script src="assets/app.js"></script>
 </body>

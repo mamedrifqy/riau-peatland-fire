@@ -56,10 +56,11 @@
    }
   ]
  },
- "chi2": {
+ "chi2NotebookAsPrinted": {
   "chi2": 1013.54,
   "dof": 5,
-  "cramersV": 0.56
+  "cramersV": 0.56,
+  "note": "area shares used were those of all 4,070 national polygons, not of Bengkalis peat; see data/bengkalis_peat_check.json for the corrected test"
  },
  "peaks": [
   {
@@ -271,47 +272,47 @@
    "total": 88
   }
  ],
- "depth": [
+ "depthNotebookAsPrinted": [
   {
    "cls": "<100 cm",
    "n": 132,
    "pctHot": 4.1,
-   "pctArea": 14.8,
+   "pctAreaNationalPolygons": 14.8,
    "ratio": 0.28
   },
   {
    "cls": "100–200 cm",
    "n": 758,
    "pctHot": 23.5,
-   "pctArea": 22.5,
+   "pctAreaNationalPolygons": 22.5,
    "ratio": 1.04
   },
   {
    "cls": "200–300 cm",
    "n": 219,
    "pctHot": 6.8,
-   "pctArea": 19.6,
+   "pctAreaNationalPolygons": 19.6,
    "ratio": 0.35
   },
   {
    "cls": "300–500 cm",
    "n": 684,
    "pctHot": 21.2,
-   "pctArea": 22.9,
+   "pctAreaNationalPolygons": 22.9,
    "ratio": 0.92
   },
   {
    "cls": "500–700 cm",
    "n": 1385,
    "pctHot": 42.9,
-   "pctArea": 13.2,
+   "pctAreaNationalPolygons": 13.2,
    "ratio": 3.25
   },
   {
    "cls": ">700 cm",
    "n": 54,
    "pctHot": 1.7,
-   "pctArea": 7.0,
+   "pctAreaNationalPolygons": 7.0,
    "ratio": 0.24
   }
  ]

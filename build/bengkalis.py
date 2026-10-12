@@ -54,13 +54,13 @@ OUT = {
                 "dunn": [{"pair": "La Niña vs Neutral", "p": 0.0347, "padj": 0.0521, "sig": False},
                          {"pair": "La Niña vs El Niño", "p": 0.0001, "padj": 0.0004, "sig": True},
                          {"pair": "Neutral vs El Niño", "p": 0.0740, "padj": 0.0740, "sig": False}]},
-    "chi2": {"chi2": 1013.54, "dof": 5, "cramersV": 0.560},
+    "chi2NotebookAsPrinted": {"chi2": 1013.54, "dof": 5, "cramersV": 0.560, "note": "area shares used were those of all 4,070 national polygons, not of Bengkalis peat; see data/bengkalis_peat_check.json for the corrected test"},
     "peaks": [{"year": 2015, "month": "July", "n": 365, "phase": "El Niño", "oni": 1.57},
               {"year": 2019, "month": "March", "n": 249, "phase": "El Niño", "oni": 0.84},
               {"year": 2023, "month": "April", "n": 32, "phase": "Neutral", "oni": 0.27, "confirmMonth": "May 2023", "confirmOni": 0.57}],
     "kecamatan": [dict(name=k[0], total=k[1], inPeat=k[2], outPeat=k[3], rho=k[4], sig=k[5], pAnnual=k[6], pElNino=k[7], pLaNina=k[8]) for k in KEC],
     "years": [dict(year=y[0], outPeat=y[1], inPeat=y[2], total=y[3]) for y in YEARS],
-    "depth": [dict(cls=d[0], n=d[1], pctHot=d[2], pctArea=d[3], ratio=d[4]) for d in DEPTH],
+    "depthNotebookAsPrinted": [dict(cls=d[0], n=d[1], pctHot=d[2], pctAreaNationalPolygons=d[3], ratio=d[4]) for d in DEPTH],
 }
 
 # --- consistency checks against totals the notebook prints

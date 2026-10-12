@@ -1,0 +1,57 @@
+{
+ "reportSeriesMonthsDiffering": 0,
+ "reportSeriesTotal": 4981,
+ "modis": {
+  "instrument": "MODIS",
+  "satellites": [
+   "Terra",
+   "Aqua"
+  ],
+  "versions": {
+   "6.03": 31867,
+   "61.03": 2675
+  }
+ },
+ "checkpoints": {
+  "n_all": 205215,
+  "after_years": 34542,
+  "in_bengkalis": 5603,
+  "anchor": 2388,
+  "medium": 1402,
+  "low": 1813,
+  "clusters": 137,
+  "rescued": 1148,
+  "final": 3536,
+  "ge30": 4981,
+  "ge50": 3790,
+  "ge80": 1725
+ },
+ "expected": {
+  "n_all": 205215,
+  "after_years": 34542,
+  "in_bengkalis": 5603,
+  "anchor": 2388,
+  "medium": 1402,
+  "low": 1813,
+  "clusters": 137,
+  "rescued": 1148,
+  "final": 3536,
+  "ge30": 4981,
+  "ge50": 3790,
+  "ge80": 1725
+ },
+ "mismatch": {},
+ "perKecamatan": {
+  "Bukit Batu": 116,
+  "Rupat Utara": 152,
+  "Talang Muandau": 180,
+  "Siak Kecil": 281,
+  "Bantan": 230,
+  "Bengkalis": 402,
+  "Bandar Laksamana": 641,
+  "Pinggir": 353,
+  "Rupat": 976,
+  "Bathin Solapan": 182,
+  "Mandau": 23
+ }
+}

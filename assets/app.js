@@ -470,13 +470,12 @@
 
   /* ---------- section: Bengkalis thesis case study ---------- */
   (function () {
-    const B = window.BKL;
-    if (!B || !$("#b-kec")) return;
+    const B = window.BKL, PT = window.BKL_PEAT && window.BKL_PEAT.stats ? window.BKL_PEAT : null;
+    if (!B || !PT || !$("#b-kec")) return;
     const p1 = (n) => n.toFixed(1), pct = (n) => n.toFixed(1) + "%";
     const kec = B.kecamatan, top2 = kec[0].total + kec[1].total;
     const yr = (y) => B.years.find((o) => o.year === y);
     const ph = (k) => B.kruskal.phases.find((o) => o.phase === k);
-    const dp = B.depth.find((d) => d.cls.indexOf("500") === 0);
     const pv = (x) => (x < 1e-3 ? "p < 0.001" : "p = " + x.toFixed(3));
     const rho = (n) => (n < 0 ? MINUS : "") + Math.abs(n).toFixed(2);
     const bind = {
@@ -486,8 +485,10 @@
       elNino: () => p1(ph("El Nino").mean), neutral: () => p1(ph("Netral").mean), laNina: () => p1(ph("La Nina").mean),
       kw: () => "H = " + B.kruskal.H.toFixed(2) + ", " + pv(B.kruskal.p) + ", η² = " + B.kruskal.eta2.toFixed(3),
       dunnAdj: () => String(B.kruskal.dunn[1].padj), p95Nino: () => p1(ph("El Nino").p95), p95Nina: () => p1(ph("La Nina").p95),
-      deepRatio: () => "×" + dp.ratio.toFixed(2), deepShare: () => pct(dp.pctHot), deepArea: () => pct(dp.pctArea),
-      chi: () => "χ² = " + B.chi2.chi2.toFixed(2) + ", dof " + B.chi2.dof + ", p < 0.001, Cramér’s V = " + B.chi2.cramersV.toFixed(2),
+      deepRatio: () => "×" + PT.table[4].ratio.toFixed(2), deepShare: () => pct(PT.table[4].pctHot), deepArea: () => pct(PT.table[4].pctArea),
+      r100: () => "×" + PT.table[1].ratio.toFixed(2), r300: () => "×" + PT.table[3].ratio.toFixed(2),
+      areaDeepest: () => pct(PT.table[5].pctArea), hotDeepest: () => pct(PT.table[5].pctHot), ratioDeepest: () => "×" + PT.table[5].ratio.toFixed(2),
+      chi: () => "χ² = " + PT.stats.chi2.toFixed(1) + ", dof " + PT.stats.dof + ", p < 0.001, w = " + PT.stats.w.toFixed(2),
       rhoPinggir: () => rho(kec.find((k) => k.name === "Pinggir").rho), rhoMandau: () => rho(kec.find((k) => k.name === "Mandau").rho)
     };
     $$("[data-b]").forEach((el) => { const f = bind[el.dataset.b]; el.textContent = f ? f() : "?"; });
@@ -512,8 +513,8 @@
         tooltip: { callbacks: { label: (it) => "ρ = " + it.parsed.x.toFixed(4) + (kec[ord[it.dataIndex]].sig === "ns" ? " (not significant)" : " " + kec[ord[it.dataIndex]].sig) } } },
         scales: { x: { min: 0, max: 0.5, title: axisTitle("Spearman ρ, ONI vs monthly hotspots"), grid: { color: "rgba(37,35,31,.08)" } }, y: { grid: { display: false } } } } });
 
-    $("#b-depth").innerHTML = "<thead><tr><th>Depth class</th><th>Hotspots</th><th>Share of hotspots</th><th>Share of peat area</th><th>Ratio</th></tr></thead><tbody>" +
-      B.depth.map((d) => '<tr><td>' + d.cls.replace("<", "under ").replace(">", "over ") + "</td><td>" + fmt(d.n) + "</td><td>" + pct(d.pctHot) + "</td><td>" + pct(d.pctArea) + '</td><td class="' + (d.ratio > 1.5 ? "sig" : "") + '">' + d.ratio.toFixed(2) + "</td></tr>").join("") + "</tbody>";
+    $("#b-depth").innerHTML = "<thead><tr><th>Depth class</th><th>Peat (ha)</th><th>Share of peat</th><th>Hotspots</th><th>Share of hotspots</th><th>Ratio</th></tr></thead><tbody>" +
+      PT.table.map((d) => "<tr><td>" + d.cls.replace("<", "under ").replace(">", "over ") + "</td><td>" + fmt(Math.round(d.ha)) + "</td><td>" + pct(d.pctArea) + "</td><td>" + fmt(d.n) + "</td><td>" + pct(d.pctHot) + '</td><td class="' + (d.ratio > 1.25 || d.ratio < 0.5 ? "sig" : "") + '">' + d.ratio.toFixed(2) + "</td></tr>").join("") + "</tbody>";
   })();
 
   /* ---------- section: interactive map ---------- */
@@ -698,5 +699,60 @@
     svg.addEventListener("mouseleave", () => tip.classList.remove("on"));
     $("#b-modes").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { S.m = b.dataset.m; paint(); } });
     paint();
+  })();
+
+  /* ---------- Bengkalis: every filtered hotspot over the peat map ---------- */
+  (function () {
+    const GB = window.BKL_GEO, P = window.BKL_PTS, PT = window.BKL_PEAT, svg = $("#bp-svg");
+    if (!GB || !P || !PT || !PT.classes || !svg) return;
+    const NS = "http://www.w3.org/2000/svg", pr = GB.proj, n = P.d.length;
+    const ORDER = ["50-<100 cm", "100-<200 cm", "200-<300 cm", "300-<500 cm", "500-<700 cm", ">700 cm"];
+    const LAB = ["under 100 cm", "100–200", "200–300", "300–500", "500–700", "over 700 cm"];
+    const SHADE = ["#efe3c6", "#e0c995", "#c6a46b", "#a07a4b", "#744f30", "#46291a"];
+    const S = { year: "all", kec: -1, peat: true };
+    svg.setAttribute("viewBox", "-60 -10 " + (GB.w + 100) + " " + (GB.h + 20));
+    const mkEl = (t, at) => { const e = document.createElementNS(NS, t); Object.keys(at).forEach((k) => e.setAttribute(k, at[k])); return e; };
+    const gPeat = mkEl("g", {}); ORDER.forEach((c, i) => { if (PT.classes[c]) gPeat.appendChild(mkEl("path", { d: PT.classes[c].d, fill: SHADE[i], "fill-rule": "evenodd" })); });
+    const gKec = mkEl("g", { fill: "none", stroke: "#6b6a64", "stroke-width": 1.2, "stroke-linejoin": "round" });
+    P.kecamatan.forEach((nm, i) => gKec.appendChild(mkEl("path", { d: GB.kecamatan[nm].d, "fill-rule": "evenodd", class: "kk", "data-i": i })));
+    const base = mkEl("g", {}); base.appendChild(mkEl("rect", { x: -60, y: -10, width: GB.w + 100, height: GB.h + 20, fill: "#e9ebe6" }));
+    const land = mkEl("g", { fill: "#f4f5f1" }); P.kecamatan.forEach((nm) => land.appendChild(mkEl("path", { d: GB.kecamatan[nm].d, "fill-rule": "evenodd" })));
+    const gPts = mkEl("g", { stroke: "#fff", "stroke-width": 0.7 });
+    const dots = [];
+    for (let i = 0; i < n; i++) {
+      const x = ((P.x[i] / 1e4) - pr.minx) * pr.k * pr.S, y = (pr.maxy - P.y[i] / 1e4) * pr.S;
+      const c = mkEl("circle", { cx: x.toFixed(1), cy: y.toFixed(1), r: P.c[i] >= 70 ? 3.4 : 2.6, fill: P.c[i] >= 70 ? "#d0471b" : "#f08a24", "fill-opacity": 0.85 });
+      gPts.appendChild(c); dots.push(c);
+    }
+    [base, land, gPeat, gKec, gPts].forEach((g) => svg.appendChild(g));
+    const yrs = ["all"].concat(Array.from({ length: 10 }, (_, i) => String(2015 + i)));
+    $("#bp-years").innerHTML = yrs.map((y) => '<button type="button" data-y="' + y + '" aria-pressed="' + (y === S.year) + '">' + (y === "all" ? "All years" : y) + "</button>").join("");
+    $("#bp-kec").innerHTML = '<option value="-1">All kecamatan</option>' + P.kecamatan.map((k, i) => '<option value="' + i + '">' + k + "</option>").join("");
+    $("#bp-legend").innerHTML = '<span class="sw"><i style="background:#d0471b;border-radius:50%;width:10px;height:10px"></i> confidence ≥70%</span><span class="sw"><i style="background:#f08a24;border-radius:50%;width:10px;height:10px"></i> 50–69%, within 1.5 km of one</span>' +
+      ORDER.map((c, i) => '<span class="sw"><i style="background:' + SHADE[i] + ';width:16px;height:12px"></i>' + LAB[i] + "</span>").join("");
+    let chart = null;
+    function update() {
+      let shown = 0; const cnt = new Array(S.year === "all" ? 120 : 12).fill(0);
+      for (let i = 0; i < n; i++) {
+        const ok = (S.year === "all" || P.d[i].slice(0, 4) === S.year) && (S.kec < 0 || P.k[i] === S.kec);
+        dots[i].style.display = ok ? "" : "none";
+        if (ok) { shown++; const y = +P.d[i].slice(0, 4), m = +P.d[i].slice(5, 7); cnt[S.year === "all" ? (y - 2015) * 12 + m - 1 : m - 1]++; }
+      }
+      gPeat.style.display = S.peat ? "" : "none";
+      $$("#bp-years button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.y === S.year)));
+      const where = S.kec < 0 ? "all kecamatan" : P.kecamatan[S.kec], when = S.year === "all" ? "2015–2024" : S.year;
+      $("#bp-cap").textContent = fmt(shown) + " hotspots shown: " + where + ", " + when + ". Peat depth classes from the national peat map; kecamatan outlines from village boundaries.";
+      $("#bp-chartcap").innerHTML = "<b>Hotspots per month</b>, " + where + ", " + when + ".";
+      const labels = S.year === "all" ? M : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      if (chart) chart.destroy();
+      chart = new Chart($("#bp-month"), { type: "bar", data: { labels: labels, datasets: [{ data: cnt, backgroundColor: C.ember }] },
+        options: { plugins: { legend: { display: false }, tooltip: { callbacks: { title: (it) => (S.year === "all" ? monthName(it[0].dataIndex, true) : labels[it[0].dataIndex] + " " + S.year) } } },
+          scales: { x: { grid: { display: false }, ticks: S.year === "all" ? xTicks : {} }, y: { beginAtZero: true, title: axisTitle("Hotspots") } } } });
+    }
+    $("#bp-years").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { S.year = b.dataset.y; update(); } });
+    $("#bp-kec").addEventListener("change", (e) => { S.kec = +e.target.value; update(); });
+    $("#bp-peat").addEventListener("change", (e) => { S.peat = e.target.checked; update(); });
+    svg.addEventListener("click", (e) => { const p = e.target.closest(".kk"); if (p) { S.kec = +p.dataset.i; $("#bp-kec").value = String(S.kec); update(); } });
+    update();
   })();
 })();
