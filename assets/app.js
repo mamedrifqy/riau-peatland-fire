@@ -756,4 +756,24 @@
     svg.addEventListener("click", (e) => { const p = e.target.closest(".kk"); if (p) { S.kec = +p.dataset.i; $("#bp-kec").value = String(S.kec); update(); } });
     update();
   })();
+
+  /* ---------- confidence-threshold table ---------- */
+  (function () {
+    const T = window.CONF, box = $("#conf-table");
+    if (!T || !box) return;
+    const NOTE = { all: "All detections, no confidence filter.", ge30: "≥30%: the threshold behind the report’s hotspot series.", ge50: "≥50%: nominal-to-high detections.", ge70: "≥70%: the anchor points in the Bengkalis thesis.", ge80: "≥80%: high-confidence detections only." };
+    let key = "ge30";
+    function render() {
+      const names = Object.keys(T).sort((a, b) => T[b][key] - T[a][key]);
+      const tot = (k) => names.reduce((s, n) => s + T[n][k], 0);
+      const max = Math.max.apply(null, names.map((n) => T[n][key]));
+      const total = tot(key), all = tot("all");
+      box.innerHTML = names.map((n) => '<div class="conf-row"><span class="conf-name">' + n + '</span><span class="conf-bar"><i style="width:' + (T[n][key] / max * 100).toFixed(1) + '%"></i></span><span class="conf-val">' + fmt(T[n][key]) + '</span><span class="conf-pct">' + (T[n].all ? Math.round(T[n][key] / T[n].all * 100) : 0) + '%</span></div>').join("") +
+        '<div class="conf-row conf-total"><span class="conf-name">Riau total</span><span class="conf-bar"></span><span class="conf-val">' + fmt(total) + '</span><span class="conf-pct">' + Math.round(total / all * 100) + '%</span></div>';
+      $("#conf-note").textContent = NOTE[key] + " The right-hand column is the share of all detections kept.";
+      $$("#conf-modes button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.k === key)));
+    }
+    $("#conf-modes").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { key = b.dataset.k; render(); } });
+    render();
+  })();
 })();

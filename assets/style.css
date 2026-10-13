@@ -277,3 +277,15 @@ footer a { color: #9cc9de; }
 .btn-read { display: inline-flex; align-items: center; gap: .5rem; padding: .7rem 1.1rem; background: var(--ember-deep); color: #fff; font-weight: 600; text-decoration: none; border-radius: 3px; }
 .btn-read:hover, .btn-read:focus-visible { filter: brightness(1.1); outline: 2px solid var(--char); outline-offset: 2px; }
 .read-note { font-size: .85rem; color: var(--char-2); opacity: .8; }
+
+/* confidence table */
+.conf-table{margin:1rem 0;max-width:760px}
+.conf-row{display:grid;grid-template-columns:150px 1fr 64px 44px;gap:.75rem;align-items:center;padding:.3rem 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:.95rem}
+.conf-name{min-width:0}
+.conf-bar{background:rgba(0,0,0,.05);height:12px;border-radius:2px;overflow:hidden}
+.conf-bar i{display:block;height:100%;background:var(--ember)}
+.conf-val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.conf-pct{text-align:right;color:var(--ash);font-variant-numeric:tabular-nums}
+.conf-total{font-weight:700;border-bottom:0;border-top:2px solid var(--char)}
+#confidence .seg{margin:.5rem 0}
+@media(max-width:560px){.conf-row{grid-template-columns:110px 1fr 56px 38px;gap:.5rem;font-size:.85rem}}

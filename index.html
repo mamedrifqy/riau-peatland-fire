@@ -334,6 +334,24 @@
   </div>
 </section>
 
+<!-- ============================ CONFIDENCE ============================ -->
+<section id="confidence">
+  <div class="wrap">
+    <h2>How many hotspots, by confidence threshold</h2>
+    <p class="lede">Each MODIS detection carries a confidence value from 0 to 100. Choose a threshold to see how many 2015–2024 detections remain in each regency.</p>
+    <div class="seg" role="group" aria-label="Confidence threshold" id="conf-modes">
+      <button type="button" data-k="all" aria-pressed="false">All</button>
+      <button type="button" data-k="ge30" aria-pressed="true">≥30%</button>
+      <button type="button" data-k="ge50" aria-pressed="false">≥50%</button>
+      <button type="button" data-k="ge70" aria-pressed="false">≥70%</button>
+      <button type="button" data-k="ge80" aria-pressed="false">≥80%</button>
+    </div>
+    <p id="conf-note" class="read-note"></p>
+    <div id="conf-table" class="conf-table"></div>
+    <p class="read-note">Counted from raw MODIS points (Terra and Aqua, collections 6.03 and 61.03) inside regency boundaries from batas-admin.geoit.dev (update 13 June 2023). At ≥30% the counts match the report’s monthly series in all 12 regencies and all 120 months. The report uses ≥30%; the Bengkalis thesis uses ≥70% as anchors and rescues 50–69% points within 1.5 km of one. NASA gives no single best cut-off, and the usual low / nominal / high split (0–29 / 30–79 / 80–100) is a convention.</p>
+  </div>
+</section>
+
 <!-- ============================ DATA ============================ -->
 <section id="data">
   <div class="wrap">
@@ -386,6 +404,7 @@
 <script src="assets/bengkalis-peat.js"></script>
 <script src="assets/bengkalis-points.js"></script>
 <script src="assets/bengkalis-data.js"></script>
+<script src="assets/confidence-data.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>
