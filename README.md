@@ -58,3 +58,5 @@ python3 build/verify_riau_hotspots.py hotspotriau.geojson    # report's 12-regen
 `build/peat.py` documents one correction to the thesis notebook: its depth table divided hotspot shares by the area
 shares of all 4,070 polygons in the national peat file instead of the peat inside Bengkalis. Both versions are
 reproduced in `data/bengkalis_peat_check.json`; the page uses the Bengkalis-only denominator.
+
+- `build/verify_regency_counts.py`: assigns every 2015-2024 MODIS point to a regency (GADM v4.0 polygons; Bengkalis from the TASWIL village boundary), tabulates counts at confidence >= 30/50/70/80 and compares the >= 30 series with the report, month by month. Output: `data/regency_confidence_table.json`.
