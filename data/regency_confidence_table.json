@@ -1,59 +1,103 @@
 {
  "strictGADM": {
-  "Bengkalis": {
-   "all": 5138,
-   "ge30": 4550,
-   "ge50": 3393,
-   "ge70": 2078,
-   "ge80": 1490,
-   "report": 4981,
-   "diff": -431,
-   "monthsEqual": 46,
-   "absMonthDiff": 595
+  "Pelalawan": {
+   "all": 7478,
+   "ge30": 6575,
+   "ge50": 4632,
+   "ge70": 2430,
+   "ge80": 1629,
+   "report": 6575,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
-  "Dumai": {
-   "all": 1900,
-   "ge30": 1763,
-   "ge50": 1432,
-   "ge70": 922,
-   "ge80": 674,
-   "report": 1595,
-   "diff": 168,
-   "monthsEqual": 81,
-   "absMonthDiff": 236
+  "Bengkalis": {
+   "all": 5603,
+   "ge30": 4981,
+   "ge50": 3790,
+   "ge70": 2388,
+   "ge80": 1725,
+   "report": 4981,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Kuantan Singingi": {
+   "all": 556,
+   "ge30": 529,
+   "ge50": 451,
+   "ge70": 234,
+   "ge80": 114,
+   "report": 529,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Rokan Hilir": {
+   "all": 4477,
+   "ge30": 4140,
+   "ge50": 3463,
+   "ge70": 2291,
+   "ge80": 1630,
+   "report": 4140,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Indragiri Hilir": {
-   "all": 4465,
-   "ge30": 3994,
-   "ge50": 2956,
-   "ge70": 1654,
-   "ge80": 1086,
+   "all": 4280,
+   "ge30": 3821,
+   "ge50": 2815,
+   "ge70": 1559,
+   "ge80": 1013,
    "report": 3821,
-   "diff": 173,
-   "monthsEqual": 75,
-   "absMonthDiff": 187
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
-  "Indragiri Hulu": {
-   "all": 3359,
-   "ge30": 3094,
-   "ge50": 2503,
-   "ge70": 1518,
-   "ge80": 1028,
-   "report": 3215,
-   "diff": -121,
-   "monthsEqual": 72,
-   "absMonthDiff": 201
+  "Pekanbaru": {
+   "all": 57,
+   "ge30": 45,
+   "ge50": 24,
+   "ge70": 7,
+   "ge80": 3,
+   "report": 45,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Siak": {
+   "all": 2994,
+   "ge30": 2570,
+   "ge50": 1619,
+   "ge70": 634,
+   "ge80": 415,
+   "report": 2570,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Rokan Hulu": {
+   "all": 786,
+   "ge30": 750,
+   "ge50": 608,
+   "ge70": 314,
+   "ge80": 156,
+   "report": 750,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Kampar": {
-   "all": 1126,
-   "ge30": 1068,
-   "ge50": 862,
-   "ge70": 423,
-   "ge80": 223,
+   "all": 1067,
+   "ge30": 1013,
+   "ge50": 812,
+   "ge70": 393,
+   "ge80": 201,
    "report": 1013,
-   "diff": 55,
-   "monthsEqual": 95,
-   "absMonthDiff": 71
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Kepulauan Meranti": {
    "all": 2049,
@@ -66,128 +110,128 @@
    "monthsEqual": 120,
    "absMonthDiff": 0
   },
-  "Kuantan Singingi": {
-   "all": 494,
-   "ge30": 473,
-   "ge50": 409,
-   "ge70": 210,
-   "ge80": 99,
-   "report": 529,
-   "diff": -56,
-   "monthsEqual": 96,
-   "absMonthDiff": 64
+  "Indragiri Hulu": {
+   "all": 3484,
+   "ge30": 3215,
+   "ge50": 2610,
+   "ge70": 1590,
+   "ge80": 1080,
+   "report": 3215,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
-  "Pekanbaru": {
-   "all": 56,
-   "ge30": 44,
-   "ge50": 23,
-   "ge70": 6,
-   "ge80": 2,
-   "report": 45,
-   "diff": -1,
-   "monthsEqual": 119,
-   "absMonthDiff": 1
-  },
-  "Pelalawan": {
-   "all": 7425,
-   "ge30": 6529,
-   "ge50": 4603,
-   "ge70": 2406,
-   "ge80": 1605,
-   "report": 6575,
-   "diff": -46,
-   "monthsEqual": 47,
-   "absMonthDiff": 202
-  },
-  "Rokan Hilir": {
-   "all": 4514,
-   "ge30": 4176,
-   "ge50": 3489,
-   "ge70": 2313,
-   "ge80": 1646,
-   "report": 4140,
-   "diff": 36,
-   "monthsEqual": 102,
-   "absMonthDiff": 54
-  },
-  "Rokan Hulu": {
-   "all": 712,
-   "ge30": 681,
-   "ge50": 557,
-   "ge70": 290,
-   "ge80": 145,
-   "report": 750,
-   "diff": -69,
-   "monthsEqual": 97,
-   "absMonthDiff": 71
-  },
-  "Siak": {
-   "all": 3272,
-   "ge30": 2835,
-   "ge50": 1861,
-   "ge70": 824,
-   "ge80": 546,
-   "report": 2570,
-   "diff": 265,
-   "monthsEqual": 40,
-   "absMonthDiff": 511
+  "Dumai": {
+   "all": 1711,
+   "ge30": 1595,
+   "ge50": 1285,
+   "ge70": 816,
+   "ge80": 584,
+   "report": 1595,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   }
  },
  "nearestFallback": {
-  "Bengkalis": {
-   "all": 5138,
-   "ge30": 4550,
-   "ge50": 3393,
-   "ge70": 2078,
-   "ge80": 1490,
-   "report": 4981,
-   "diff": -431,
-   "monthsEqual": 46,
-   "absMonthDiff": 595
+  "Pelalawan": {
+   "all": 7478,
+   "ge30": 6575,
+   "ge50": 4632,
+   "ge70": 2430,
+   "ge80": 1629,
+   "report": 6575,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
-  "Dumai": {
-   "all": 1900,
-   "ge30": 1763,
-   "ge50": 1432,
-   "ge70": 922,
-   "ge80": 674,
-   "report": 1595,
-   "diff": 168,
-   "monthsEqual": 81,
-   "absMonthDiff": 236
+  "Bengkalis": {
+   "all": 5603,
+   "ge30": 4981,
+   "ge50": 3790,
+   "ge70": 2388,
+   "ge80": 1725,
+   "report": 4981,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Kuantan Singingi": {
+   "all": 556,
+   "ge30": 529,
+   "ge50": 451,
+   "ge70": 234,
+   "ge80": 114,
+   "report": 529,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Rokan Hilir": {
+   "all": 4477,
+   "ge30": 4140,
+   "ge50": 3463,
+   "ge70": 2291,
+   "ge80": 1630,
+   "report": 4140,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Indragiri Hilir": {
-   "all": 4469,
-   "ge30": 3997,
-   "ge50": 2959,
-   "ge70": 1656,
-   "ge80": 1087,
+   "all": 4280,
+   "ge30": 3821,
+   "ge50": 2815,
+   "ge70": 1559,
+   "ge80": 1013,
    "report": 3821,
-   "diff": 176,
-   "monthsEqual": 76,
-   "absMonthDiff": 186
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
-  "Indragiri Hulu": {
-   "all": 3370,
-   "ge30": 3103,
-   "ge50": 2511,
-   "ge70": 1524,
-   "ge80": 1032,
-   "report": 3215,
-   "diff": -112,
-   "monthsEqual": 73,
-   "absMonthDiff": 194
+  "Pekanbaru": {
+   "all": 57,
+   "ge30": 45,
+   "ge50": 24,
+   "ge70": 7,
+   "ge80": 3,
+   "report": 45,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Siak": {
+   "all": 2994,
+   "ge30": 2570,
+   "ge50": 1619,
+   "ge70": 634,
+   "ge80": 415,
+   "report": 2570,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Rokan Hulu": {
+   "all": 786,
+   "ge30": 750,
+   "ge50": 608,
+   "ge70": 314,
+   "ge80": 156,
+   "report": 750,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Kampar": {
-   "all": 1131,
-   "ge30": 1073,
-   "ge50": 865,
-   "ge70": 424,
-   "ge80": 223,
+   "all": 1067,
+   "ge30": 1013,
+   "ge50": 812,
+   "ge70": 393,
+   "ge80": 201,
    "report": 1013,
-   "diff": 60,
-   "monthsEqual": 98,
-   "absMonthDiff": 66
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Kepulauan Meranti": {
    "all": 2049,
@@ -200,71 +244,27 @@
    "monthsEqual": 120,
    "absMonthDiff": 0
   },
-  "Kuantan Singingi": {
-   "all": 501,
-   "ge30": 479,
-   "ge50": 413,
-   "ge70": 212,
-   "ge80": 99,
-   "report": 529,
-   "diff": -50,
-   "monthsEqual": 98,
-   "absMonthDiff": 60
+  "Indragiri Hulu": {
+   "all": 3484,
+   "ge30": 3215,
+   "ge50": 2610,
+   "ge70": 1590,
+   "ge80": 1080,
+   "report": 3215,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
-  "Pekanbaru": {
-   "all": 56,
-   "ge30": 44,
-   "ge50": 23,
-   "ge70": 6,
-   "ge80": 2,
-   "report": 45,
-   "diff": -1,
-   "monthsEqual": 119,
-   "absMonthDiff": 1
-  },
-  "Pelalawan": {
-   "all": 7428,
-   "ge30": 6531,
-   "ge50": 4604,
-   "ge70": 2406,
-   "ge80": 1605,
-   "report": 6575,
-   "diff": -44,
-   "monthsEqual": 47,
-   "absMonthDiff": 202
-  },
-  "Rokan Hilir": {
-   "all": 4515,
-   "ge30": 4177,
-   "ge50": 3490,
-   "ge70": 2313,
-   "ge80": 1646,
-   "report": 4140,
-   "diff": 37,
-   "monthsEqual": 103,
-   "absMonthDiff": 53
-  },
-  "Rokan Hulu": {
-   "all": 713,
-   "ge30": 682,
-   "ge50": 558,
-   "ge70": 291,
-   "ge80": 146,
-   "report": 750,
-   "diff": -68,
-   "monthsEqual": 98,
-   "absMonthDiff": 70
-  },
-  "Siak": {
-   "all": 3272,
-   "ge30": 2835,
-   "ge50": 1861,
-   "ge70": 824,
-   "ge80": 546,
-   "report": 2570,
-   "diff": 265,
-   "monthsEqual": 40,
-   "absMonthDiff": 511
+  "Dumai": {
+   "all": 1711,
+   "ge30": 1595,
+   "ge50": 1285,
+   "ge70": 816,
+   "ge80": 584,
+   "report": 1595,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   }
  },
  "bengkalisVillageBoundary": {
@@ -277,19 +277,27 @@
   "monthsEqual": 120
  },
  "outsideGADM": {
-  "points": 32,
-  "ge30": 27,
-  "medianKm": 0.14574587963045682,
-  "maxKm": 0.7693374132927365
+  "points": 0,
+  "ge30": 0,
+  "medianKm": 0,
+  "maxKm": 0
  },
  "bengkalisReassign": {
-  "movedFrom": {
-   "Dumai": 208,
-   "Siak": 405
-  },
-  "outsideVillageUnion": 182
+  "movedFrom": {},
+  "outsideVillageUnion": 0
  },
  "gadmWithBengkalisVillages": {
+  "Pelalawan": {
+   "all": 7478,
+   "ge30": 6575,
+   "ge50": 4632,
+   "ge70": 2430,
+   "ge80": 1629,
+   "report": 6575,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
   "Bengkalis": {
    "all": 5603,
    "ge30": 4981,
@@ -301,49 +309,82 @@
    "monthsEqual": 120,
    "absMonthDiff": 0
   },
-  "Dumai": {
-   "all": 1671,
-   "ge30": 1555,
-   "ge50": 1255,
-   "ge70": 793,
-   "ge80": 568,
-   "report": 1595,
-   "diff": -40,
-   "monthsEqual": 105,
-   "absMonthDiff": 44
+  "Kuantan Singingi": {
+   "all": 556,
+   "ge30": 529,
+   "ge50": 451,
+   "ge70": 234,
+   "ge80": 114,
+   "report": 529,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Rokan Hilir": {
+   "all": 4477,
+   "ge30": 4140,
+   "ge50": 3463,
+   "ge70": 2291,
+   "ge80": 1630,
+   "report": 4140,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Indragiri Hilir": {
-   "all": 4469,
-   "ge30": 3997,
-   "ge50": 2959,
-   "ge70": 1656,
-   "ge80": 1087,
+   "all": 4280,
+   "ge30": 3821,
+   "ge50": 2815,
+   "ge70": 1559,
+   "ge80": 1013,
    "report": 3821,
-   "diff": 176,
-   "monthsEqual": 76,
-   "absMonthDiff": 186
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
-  "Indragiri Hulu": {
-   "all": 3370,
-   "ge30": 3103,
-   "ge50": 2511,
-   "ge70": 1524,
-   "ge80": 1032,
-   "report": 3215,
-   "diff": -112,
-   "monthsEqual": 73,
-   "absMonthDiff": 194
+  "Pekanbaru": {
+   "all": 57,
+   "ge30": 45,
+   "ge50": 24,
+   "ge70": 7,
+   "ge80": 3,
+   "report": 45,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Siak": {
+   "all": 2994,
+   "ge30": 2570,
+   "ge50": 1619,
+   "ge70": 634,
+   "ge80": 415,
+   "report": 2570,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
+  },
+  "Rokan Hulu": {
+   "all": 786,
+   "ge30": 750,
+   "ge50": 608,
+   "ge70": 314,
+   "ge80": 156,
+   "report": 750,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Kampar": {
-   "all": 1131,
-   "ge30": 1073,
-   "ge50": 865,
-   "ge70": 424,
-   "ge80": 223,
+   "all": 1067,
+   "ge30": 1013,
+   "ge50": 812,
+   "ge70": 393,
+   "ge80": 201,
    "report": 1013,
-   "diff": 60,
-   "monthsEqual": 98,
-   "absMonthDiff": 66
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
   "Kepulauan Meranti": {
    "all": 2049,
@@ -356,71 +397,27 @@
    "monthsEqual": 120,
    "absMonthDiff": 0
   },
-  "Kuantan Singingi": {
-   "all": 501,
-   "ge30": 479,
-   "ge50": 413,
-   "ge70": 212,
-   "ge80": 99,
-   "report": 529,
-   "diff": -50,
-   "monthsEqual": 98,
-   "absMonthDiff": 60
+  "Indragiri Hulu": {
+   "all": 3484,
+   "ge30": 3215,
+   "ge50": 2610,
+   "ge70": 1590,
+   "ge80": 1080,
+   "report": 3215,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   },
-  "Pekanbaru": {
-   "all": 56,
-   "ge30": 44,
-   "ge50": 23,
-   "ge70": 6,
-   "ge80": 2,
-   "report": 45,
-   "diff": -1,
-   "monthsEqual": 119,
-   "absMonthDiff": 1
-  },
-  "Pelalawan": {
-   "all": 7428,
-   "ge30": 6531,
-   "ge50": 4604,
-   "ge70": 2406,
-   "ge80": 1605,
-   "report": 6575,
-   "diff": -44,
-   "monthsEqual": 47,
-   "absMonthDiff": 202
-  },
-  "Rokan Hilir": {
-   "all": 4515,
-   "ge30": 4178,
-   "ge50": 3491,
-   "ge70": 2314,
-   "ge80": 1646,
-   "report": 4140,
-   "diff": 38,
-   "monthsEqual": 103,
-   "absMonthDiff": 52
-  },
-  "Rokan Hulu": {
-   "all": 715,
-   "ge30": 684,
-   "ge50": 560,
-   "ge70": 291,
-   "ge80": 146,
-   "report": 750,
-   "diff": -66,
-   "monthsEqual": 98,
-   "absMonthDiff": 68
-  },
-  "Siak": {
-   "all": 3034,
-   "ge30": 2609,
-   "ge50": 1638,
-   "ge70": 642,
-   "ge80": 417,
-   "report": 2570,
-   "diff": 39,
-   "monthsEqual": 72,
-   "absMonthDiff": 119
+  "Dumai": {
+   "all": 1711,
+   "ge30": 1595,
+   "ge50": 1285,
+   "ge70": 816,
+   "ge80": 584,
+   "report": 1595,
+   "diff": 0,
+   "monthsEqual": 120,
+   "absMonthDiff": 0
   }
  }
 }

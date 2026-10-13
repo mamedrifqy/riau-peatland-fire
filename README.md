@@ -59,4 +59,5 @@ python3 build/verify_riau_hotspots.py hotspotriau.geojson    # report's 12-regen
 shares of all 4,070 polygons in the national peat file instead of the peat inside Bengkalis. Both versions are
 reproduced in `data/bengkalis_peat_check.json`; the page uses the Bengkalis-only denominator.
 
-- `build/verify_regency_counts.py`: assigns every 2015-2024 MODIS point to a regency (GADM v4.0 polygons; Bengkalis from the TASWIL village boundary), tabulates counts at confidence >= 30/50/70/80 and compares the >= 30 series with the report, month by month. Output: `data/regency_confidence_table.json`.
+- `build/verify_regency_counts.py`: assigns every 2015-2024 MODIS point to a regency (Kab_Kota polygons from batas-admin.geoit.dev / Alf-Anas/batas-administrasi-indonesia, update 13 June 2023; the script also accepts GADM v4.0 polygons), tabulates counts at confidence >= 30/50/70/80 and compares the >= 30 series with the report, month by month. Output: `data/regency_confidence_table.json`.
+  Result with the batas-admin polygons: all 12 regencies match the report's >= 30% series in 120 of 120 months (30,988 points, none outside a polygon). With GADM v4.0 the match is exact only for Bengkalis (village boundary), Kepulauan Meranti and, within one point, Pekanbaru.
